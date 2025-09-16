@@ -8,7 +8,7 @@ import { TRPCProvider } from "@/lib/trpc/provider"
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
     <TRPCProvider>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
         <NextAuthProvider>{children}</NextAuthProvider>
       </ThemeProvider>
     </TRPCProvider>

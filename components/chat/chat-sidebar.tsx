@@ -25,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserMenu } from "@/components/auth/user-menu";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow, format } from "date-fns";
 import { useRouter, usePathname } from "next/navigation";
@@ -207,7 +208,7 @@ export function ChatSidebar({
                     className={cn(
                       "p-2 cursor-pointer transition-all duration-200 hover:shadow-sm group ",
                       currentSessionId === session.id
-                        ? "bg-gray-700 from-sidebar-accent to-sidebar-accent/90 text-sidebar-accent-foreground shadow-sm "
+                        ? "bg-gray-200 dark:bg-gray-700 from-sidebar-accent to-sidebar-accent/90 text-sidebar-accent-foreground shadow-sm "
                         : "bg-sidebar/50 text-sidebar-foreground hover:bg-sidebar-accent/30 hover:text-sidebar-accent-foreground border-sidebar-border/30"
                     )}
                     onClick={() => onSelectSession?.(session.id)}
@@ -237,7 +238,7 @@ export function ChatSidebar({
                           </h3>
                         )}
 
-                        <div className="flex flex-col gap-1.5 mt-2">
+                        <div className="flex flex-col gap-1.5 mt-2 text-gray-900 dark:text-gray-400">
                           <div className="flex items-center gap-1.5">
                             <Calendar className="h-3 w-3 opacity-50" />
                             <p className="text-xs opacity-70">
@@ -314,7 +315,14 @@ export function ChatSidebar({
       )}
 
       {/* User Section at Bottom */}
-      <div className="mt-auto p-4 border-t border-sidebar-border/50">
+      <div className="mt-auto p-4 border-t border-sidebar-border/50 space-y-3">
+        {/* Theme Toggle */}
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-sidebar-foreground/70">Theme</span>
+          <ThemeToggle />
+        </div>
+
+        {/* User Info */}
         {user ? (
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">

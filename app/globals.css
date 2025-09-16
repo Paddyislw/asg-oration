@@ -3,44 +3,44 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color tokens to match career counseling app design brief */
-  --background: #0a0a0b;
-  --foreground: #ffffff;
-  --card: #27272a;
-  --card-foreground: #ffffff;
-  --popover: #27272a;
-  --popover-foreground: #ffffff;
+  /* Light mode colors */
+  --background: #ffffff;
+  --foreground: #0a0a0b;
+  --card: #f8f9fa;
+  --card-foreground: #0a0a0b;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0b;
   --primary: #f53d05;
   --primary-foreground: #ffffff;
-  --secondary: #cfcfcf;
+  --secondary: #f1f5f9;
   --secondary-foreground: #0a0a0b;
-  --muted: #cfcfcf;
-  --muted-foreground: #666666;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
   --accent: #f53d05;
   --accent-foreground: #ffffff;
-  --destructive: #ff4c4c;
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #444444;
-  --input: #27272a;
-  --ring: rgba(245, 61, 5, 0.5);
+  --border: #e2e8f0;
+  --input: #ffffff;
+  --ring: rgba(245, 61, 5, 0.3);
   --chart-1: #f53d05;
   --chart-2: #ff7a00;
   --chart-3: #ffb300;
   --chart-4: #ffd700;
   --chart-5: #fff000;
   --radius: 0.5rem;
-  --sidebar: #27272a;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #0a0a0b;
+  --sidebar: #f8f9fa;
+  --sidebar-foreground: #0a0a0b;
+  --sidebar-primary: #ffffff;
   --sidebar-primary-foreground: #f53d05;
   --sidebar-accent: #f53d05;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #444444;
-  --sidebar-ring: rgba(245, 61, 5, 0.5);
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: rgba(245, 61, 5, 0.3);
 }
 
 .dark {
-  /* Dark mode uses same colors as this is already a dark theme */
+  /* Dark mode colors */
   --background: #0a0a0b;
   --foreground: #ffffff;
   --card: #27272a;

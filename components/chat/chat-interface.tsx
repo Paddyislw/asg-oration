@@ -244,7 +244,7 @@ export function ChatInterface({
                     className={cn(
                       "p-4 shadow-sm transition-all duration-200 group-hover:shadow-md",
                       message.role === "user"
-                        ? "bg-[#364153] text-primary-foreground border-primary/20"
+                        ? "bg-gray-300 dark:bg-[#364153] text-gray-800 dark:text-primary-foreground border-primary/20"
                         : "bg-card text-card-foreground border-border/50 hover:border-border"
                     )}
                   >
