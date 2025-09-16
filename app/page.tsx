@@ -92,7 +92,7 @@ export default function HomePage() {
   const formattedMessages = messages.map((msg) => ({
     id: msg.id,
     content: msg.content,
-    role: msg.role,
+    role: msg.role as "user" | "assistant",
     timestamp: new Date(msg.createdAt), // Fixed property name from created_at to createdAt
   }))
 

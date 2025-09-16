@@ -3,8 +3,9 @@
 import { useState, useCallback } from "react"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
+import { trpc } from "@/lib/trpc/client"
 
-// Types for our API responses
+// Types for our data
 interface Session {
   id: string
   title: string
@@ -21,64 +22,52 @@ interface Message {
   createdAt: string
 }
 
-interface ApiResponse<T> {
-  success: boolean
-  data: T
-  error?: string
-}
-
 // Custom hook for managing chat functionality
 export function useChat() {
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [sessions, setSessions] = useState<Session[]>([])
-  const [messages, setMessages] = useState<Message[]>([])
-  const [isLoadingSessions, setIsLoadingSessions] = useState(false)
-  const [isLoadingMessages, setIsLoadingMessages] = useState(false)
   const [isSending, setIsSending] = useState(false)
+  const [tempMessages, setTempMessages] = useState<Message[]>([])
   const { data: session } = useSession()
   const user = session?.user
 
-  // Fetch sessions from API
-  const fetchSessions = useCallback(async () => {
-    if (!user?.id) return
+  // tRPC queries and mutations
+  const {
+    data: sessions = [],
+    isLoading: isLoadingSessions,
+    refetch: refetchSessions,
+  } = trpc.getSessions.useQuery({ userId: user?.id! }, { enabled: !!user?.id })
 
-    setIsLoadingSessions(true)
-    try {
-      const response = await fetch(`/api/chat/sessions?userId=${user.id}`)
-      if (response.ok) {
-        const result: ApiResponse<Session[]> = await response.json()
-        if (result.success) {
-          const sortedSessions = result.data.sort(
-            (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
-          )
-          setSessions(sortedSessions)
-        }
-      }
-    } catch (error) {
-      console.error("Failed to fetch sessions:", error)
-    } finally {
-      setIsLoadingSessions(false)
-    }
-  }, [user?.id])
+  const {
+    data: dbMessages = [],
+    isLoading: isLoadingMessages,
+    refetch: refetchMessages,
+  } = trpc.getMessages.useQuery({ sessionId: currentSessionId! }, { enabled: !!currentSessionId })
 
-  // Fetch messages from API
-  const fetchMessages = useCallback(async (sessionId: string) => {
-    setIsLoadingMessages(true)
-    try {
-      const response = await fetch(`/api/chat/messages?sessionId=${sessionId}`)
-      if (response.ok) {
-        const result: ApiResponse<Message[]> = await response.json()
-        if (result.success) {
-          setMessages(result.data)
-        }
-      }
-    } catch (error) {
-      console.error("Failed to fetch messages:", error)
-    } finally {
-      setIsLoadingMessages(false)
-    }
-  }, [])
+  // Combine real messages with temp messages
+  const messages = [...dbMessages, ...tempMessages]
+
+  const createSessionMutation = trpc.createSession.useMutation({
+    onSuccess: () => refetchSessions(),
+  })
+
+  const updateTitleMutation = trpc.updateTitle.useMutation({
+    onSuccess: () => refetchSessions(),
+  })
+
+  const deleteSessionMutation = trpc.deleteSession.useMutation({
+    onSuccess: () => refetchSessions(),
+  })
+
+  const sendMessageMutation = trpc.sendMessage.useMutation({
+    onSuccess: () => {
+      setTempMessages([])
+      refetchMessages()
+      refetchSessions()
+    },
+    onError: () => {
+      setTempMessages([])
+    },
+  })
 
   // Create a new chat session
   const createSession = useCallback(
@@ -96,30 +85,19 @@ export function useChat() {
             hour12: true,
           })}`
 
-        const response = await fetch("/api/chat/sessions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title: sessionTitle, userId: user.id }),
+        const result = await createSessionMutation.mutateAsync({
+          title: sessionTitle,
+          userId: user.id,
         })
 
-        if (response.ok) {
-          const result: ApiResponse<Session> = await response.json()
-          if (result.success) {
-            setCurrentSessionId(result.data.id)
-            await fetchSessions()
-            toast.success("New chat session created")
-          }
-        } else {
-          throw new Error("Failed to create session")
-        }
+        setCurrentSessionId(result.id)
+        toast.success("New chat session created")
       } catch (error) {
         toast.error("Failed to create new session")
         console.error("Create session error:", error)
       }
     },
-    [user?.id, fetchSessions],
+    [user?.id, createSessionMutation],
   )
 
   // Send a message in the current session
@@ -127,104 +105,47 @@ export function useChat() {
     async (content: string) => {
       if (!user?.id) return
 
-      if (!currentSessionId) {
+      let sessionId = currentSessionId
+
+      // Create new session if none exists
+      if (!sessionId) {
         const words = content.trim().split(/\s+/)
         const sessionTitle = words.slice(0, 3).join(" ") || "New Chat"
 
         try {
-          const response = await fetch("/api/chat/sessions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ title: sessionTitle, userId: user.id }),
+          const result = await createSessionMutation.mutateAsync({
+            title: sessionTitle,
+            userId: user.id,
           })
 
-          if (response.ok) {
-            const result: ApiResponse<Session> = await response.json()
-            if (result.success) {
-              const newSessionId = result.data.id
-              setCurrentSessionId(newSessionId)
-              await fetchSessions()
-
-              // Now send the message with the new session ID
-              const tempUserMessage: Message = {
-                id: `temp-${Date.now()}`,
-                sessionId: newSessionId,
-                content,
-                role: "user",
-                createdAt: new Date().toISOString(),
-              }
-              setMessages([tempUserMessage])
-              setIsSending(true)
-
-              try {
-                const messageResponse = await fetch("/api/chat/messages", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    sessionId: newSessionId,
-                    content,
-                    userId: user.id,
-                  }),
-                })
-
-                if (messageResponse.ok) {
-                  await fetchMessages(newSessionId)
-                  await fetchSessions() // Refresh sessions to update timestamps
-                } else {
-                  setMessages([])
-                  throw new Error("Failed to send message")
-                }
-              } catch (error) {
-                toast.error("Failed to send message")
-                console.error("Send message error:", error)
-              } finally {
-                setIsSending(false)
-              }
-            }
-          } else {
-            throw new Error("Failed to create session")
-          }
+          sessionId = result.id
+          setCurrentSessionId(sessionId)
         } catch (error) {
           toast.error("Failed to create new session")
           console.error("Create session error:", error)
+          return
         }
-        return
       }
 
+      // Show user message instantly
       const tempUserMessage: Message = {
         id: `temp-${Date.now()}`,
-        sessionId: currentSessionId,
+        sessionId,
         content,
         role: "user",
         createdAt: new Date().toISOString(),
       }
-      setMessages((prev) => [...prev, tempUserMessage])
+
+      // Add temp message immediately
+      setTempMessages([tempUserMessage])
       setIsSending(true)
 
       try {
-        const response = await fetch("/api/chat/messages", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            sessionId: currentSessionId,
-            content,
-            userId: user.id,
-          }),
+        await sendMessageMutation.mutateAsync({
+          sessionId,
+          content,
+          userId: user.id,
         })
-
-        if (response.ok) {
-          await fetchMessages(currentSessionId)
-          await fetchSessions() // Refresh sessions to update timestamps
-        } else {
-          setMessages((prev) => prev.filter((msg) => msg.id !== tempUserMessage.id))
-          throw new Error("Failed to send message")
-        }
       } catch (error) {
         toast.error("Failed to send message")
         console.error("Send message error:", error)
@@ -232,79 +153,52 @@ export function useChat() {
         setIsSending(false)
       }
     },
-    [currentSessionId, user?.id, fetchMessages, fetchSessions],
+    [currentSessionId, user?.id, createSessionMutation, sendMessageMutation],
   )
 
   // Select a chat session
-  const selectSession = useCallback(
-    (sessionId: string) => {
-      setCurrentSessionId(sessionId)
-      fetchMessages(sessionId)
-    },
-    [fetchMessages],
-  )
+  const selectSession = useCallback((sessionId: string) => {
+    setCurrentSessionId(sessionId)
+    setTempMessages([]) // Clear temp messages when switching sessions
+  }, [])
 
   // Update session title
   const updateSessionTitle = useCallback(
     async (sessionId: string, title: string) => {
       try {
-        const response = await fetch("/api/chat/sessions", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sessionId, title }),
-        })
-
-        if (response.ok) {
-          await fetchSessions()
-          toast.success("Chat title updated")
-        } else {
-          throw new Error("Failed to update title")
-        }
+        await updateTitleMutation.mutateAsync({ sessionId, title })
+        toast.success("Chat title updated")
       } catch (error) {
         toast.error("Failed to update title")
         console.error("Update title error:", error)
       }
     },
-    [fetchSessions],
+    [updateTitleMutation],
   )
 
   // Delete a session
   const deleteSession = useCallback(
     async (sessionId: string) => {
       try {
-        const response = await fetch("/api/chat/sessions", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sessionId }),
-        })
-
-        if (response.ok) {
-          if (currentSessionId === sessionId) {
-            setCurrentSessionId(null)
-            setMessages([])
-          }
-          await fetchSessions()
-          toast.success("Chat session deleted")
-        } else {
-          throw new Error("Failed to delete session")
+        await deleteSessionMutation.mutateAsync({ sessionId })
+        if (currentSessionId === sessionId) {
+          setCurrentSessionId(null)
+          setTempMessages([]) // Clear temp messages when deleting current session
         }
+        toast.success("Chat session deleted")
       } catch (error) {
         toast.error("Failed to delete session")
         console.error("Delete session error:", error)
       }
     },
-    [currentSessionId, fetchSessions],
+    [currentSessionId, deleteSessionMutation],
   )
 
   return {
     // State
     currentSessionId,
-    isLoading,
     isSending,
+    isLoading: isLoadingSessions || isLoadingMessages,
 
     // Data
     sessions,
@@ -322,7 +216,7 @@ export function useChat() {
     deleteSession,
 
     // Refetch functions
-    refetchSessions: fetchSessions,
-    refetchMessages: () => (currentSessionId ? fetchMessages(currentSessionId) : Promise.resolve()),
+    refetchSessions: () => refetchSessions(),
+    refetchMessages: () => refetchMessages(),
   }
 }
