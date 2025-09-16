@@ -35,15 +35,31 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
   const [inputValue, setInputValue] = useState("")
   const [isUserTyping, setIsUserTyping] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Auto-scroll to bottom when new messages arrive
+  // Smooth auto-scroll to bottom when new messages arrive or AI is responding
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end"
+    })
+  }, [])
+
+  // Auto-scroll when messages change or AI is thinking/responding
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
-    }
-  }, [messages, isLoading])
+    const timeoutId = setTimeout(() => {
+      scrollToBottom()
+    }, 100) // Small delay to ensure DOM has updated
+
+    return () => clearTimeout(timeoutId)
+  }, [messages, isLoading, aiThinkingPhase, scrollToBottom])
+
+  // Also scroll on mount to show latest messages
+  useEffect(() => {
+    scrollToBottom()
+  }, [scrollToBottom])
 
   // Handle typing detection
   const handleTypingChange = useCallback((isTyping: boolean) => {
@@ -93,6 +109,9 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
       clearTimeout(typingTimeoutRef.current)
     }
     handleTypingChange(false)
+
+    // Scroll to bottom immediately after sending
+    setTimeout(() => scrollToBottom(), 50)
 
     try {
       if (onSendMessage) {
@@ -225,6 +244,9 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
               </Card>
             </div>
           )}
+
+          {/* Invisible element to scroll to */}
+          <div ref={messagesEndRef} />
         </div>
       </ScrollArea>
 

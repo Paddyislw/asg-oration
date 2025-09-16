@@ -162,24 +162,18 @@ export function useChat() {
 
   // Select a chat session
   const selectSession = useCallback((sessionId: string) => {
-    console.log("[useChat] selectSession called with:", sessionId)
-    console.log("[useChat] Current session ID:", currentSessionId)
-
     if (sessionId === "draft-session") {
       // Don't allow selecting the draft session ID directly
-      console.log("[useChat] Ignoring draft-session selection")
       return
     }
 
-    console.log("[useChat] Setting session ID to:", sessionId)
     setCurrentSessionId(sessionId)
     setIsDraftSession(false) // Not a draft when selecting existing session
     setTempMessages([]) // Clear temp messages when switching sessions
 
     // Update URL with selected session ID
-    console.log("[useChat] Updating URL to:", `/?session=${sessionId}`)
     router.replace(`/?session=${sessionId}`, { scroll: false })
-  }, [router, currentSessionId])
+  }, [router])
 
   // Update session title
   const updateSessionTitle = useCallback(

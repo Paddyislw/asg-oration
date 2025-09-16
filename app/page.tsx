@@ -44,12 +44,9 @@ export default function HomePage() {
 
   // Handle URL session parameter - only on initial load
   useEffect(() => {
-    console.log("[v0] URL param effect - sessionParam:", sessionParam, "currentSessionId:", currentSessionId)
     if (sessionParam && sessions.length > 0 && session?.user?.id && !currentSessionId) {
       const sessionExists = sessions.find(s => s.id === sessionParam)
-      console.log("[v0] Session exists:", !!sessionExists)
       if (sessionExists) {
-        console.log("[v0] Selecting session from URL:", sessionParam)
         selectSession(sessionParam)
       }
     }
@@ -91,7 +88,6 @@ export default function HomePage() {
 
   // Handle selecting a chat session
   const handleSelectSession = (sessionId: string) => {
-    console.log("[v0] Sidebar session click:", sessionId)
     selectSession(sessionId)
     setSidebarOpen(false) // Close sidebar on mobile after selection
   }
