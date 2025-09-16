@@ -83,20 +83,45 @@ export default function HomePage() {
 
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-background via-background to-muted/20">
-        <div className="text-center space-y-6">
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-background via-background to-background/80 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-accent/10 rounded-full blur-xl animate-pulse [animation-delay:1s]" />
+          <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-primary/5 rounded-full blur-lg animate-pulse [animation-delay:2s]" />
+        </div>
+
+        <div className="text-center space-y-8 relative z-10">
           <div className="relative">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
-              <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            {/* Main loading container */}
+            <div className="relative w-24 h-24 mx-auto">
+              {/* Inner spinning loader */}
+              <div className="absolute inset-2 border-3 border-primary border-t-transparent rounded-full animate-spin" />
+              {/* Center icon container */}
+              <div className="absolute inset-6 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center backdrop-blur-sm">
+                <Sparkles className="h-6 w-6 text-primary animate-pulse" />
+              </div>
             </div>
-            <Sparkles className="absolute -top-1 -right-1 h-5 w-5 text-primary animate-pulse" />
+
+            {/* Floating sparkles */}
+            <div className="absolute -top-2 -left-2 w-3 h-3 bg-primary/40 rounded-full animate-bounce [animation-delay:0.5s]" />
+            <div className="absolute -bottom-2 -right-2 w-2 h-2 bg-accent/40 rounded-full animate-bounce [animation-delay:1.5s]" />
+            <div className="absolute top-2 -right-4 w-2.5 h-2.5 bg-primary/30 rounded-full animate-bounce [animation-delay:2.5s]" />
           </div>
-          <div className="space-y-2">
-            <h2 className="text-xl font-semibold text-foreground">
-              Loading Career AI
-            </h2>
-            <p className="text-muted-foreground">
-              Preparing your personalized experience...
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <h2 className="text-2xl font-bold text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text">
+                Career AI
+              </h2>
+              <div className="flex items-center justify-center gap-1">
+                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0s]" />
+                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0.2s]" />
+                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:0.4s]" />
+              </div>
+            </div>
+            <p className="text-muted-foreground text-lg font-medium">
+              Preparing your personalized experience
             </p>
           </div>
         </div>
