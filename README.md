@@ -1,105 +1,134 @@
 # Career Counseling AI
 
-A modern AI-powered career counseling application built with Next.js, tRPC, and OpenAI. Get personalized career guidance through intelligent conversations with an AI counselor.
+A modern AI-powered career counseling application built with Next.js, tRPC, and Google Gemini AI. Get personalized career guidance through intelligent conversations with an AI counselor.
 
-## Features
+## ✨ Features
 
-- 🤖 **AI-Powered Counseling**: Professional career guidance using OpenAI's GPT-4o model
-- 💬 **Real-time Chat**: Seamless chat interface with message history
-- 🔐 **Secure Authentication**: User authentication powered by Stack Auth
+- 🤖 **AI-Powered Counseling**: Professional career guidance using Google Gemini AI
+- 💬 **Real-time Chat**: Seamless chat interface with typing indicators and message history
+- 📝 **Draft Sessions**: Start conversations immediately - sessions only save when you send your first message
 - 📱 **Responsive Design**: Works perfectly on desktop and mobile devices
-- 💾 **Persistent History**: All conversations are saved and can be resumed
+- 💾 **Persistent History**: All conversations are saved and can be resumed anytime
 - 🎨 **Modern UI**: Clean, professional interface with dark/light mode support
+- 🔄 **Session Management**: Create, rename, delete, and paginate through chat sessions
+- 🏗️ **Sidebar Navigation**: Traditional AI chat app layout with full session management
+- ⚡ **Real-time Indicators**: Typing detection and AI thinking phase indicators
+- 🌙 **Default Dark Mode**: Beautiful dark theme as default with light mode option
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 14, React 19, TypeScript
-- **Backend**: tRPC, Neon PostgreSQL
-- **AI**: OpenAI GPT-4o
-- **Authentication**: Stack Auth
-- **Styling**: Tailwind CSS, shadcn/ui
-- **Deployment**: Vercel
+- **Backend**: tRPC, Prisma ORM, Neon PostgreSQL
+- **AI**: Google Gemini AI (@ai-sdk/google)
+- **Authentication**: NextAuth.js
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **State Management**: TanStack Query (React Query)
+- **Theme**: next-themes for dark/light mode
+- **UI Components**: Radix UI primitives
+- **Deployment**: Vercel-ready
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
-- A Neon database
-- OpenAI API key
-- Stack Auth project
+- Node.js 18+
+- A Neon PostgreSQL database
+- Google AI Studio API key (for Gemini)
+- NextAuth.js configuration
 
 ### Environment Variables
 
 Create a `.env.local` file with the following variables:
 
-\`\`\`env
+```env
 # Database
 DATABASE_URL="your-neon-database-url"
 
-# AI Service
-OPENAI_API_KEY="your-openai-api-key"
+# AI Service (Google Gemini)
+GOOGLE_GENERATIVE_AI_API_KEY="your-google-ai-api-key"
 
-# Authentication (Stack Auth)
-NEXT_PUBLIC_STACK_PROJECT_ID="your-stack-project-id"
-NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY="your-stack-publishable-key"
-STACK_SECRET_SERVER_KEY="your-stack-secret-key"
-\`\`\`
+# Authentication (NextAuth.js)
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-nextauth-secret"
+
+# Add your preferred OAuth providers
+# GOOGLE_CLIENT_ID="your-google-client-id"
+# GOOGLE_CLIENT_SECRET="your-google-client-secret"
+# GITHUB_ID="your-github-client-id"
+# GITHUB_SECRET="your-github-client-secret"
+```
 
 ### Installation
 
 1. Clone the repository:
-\`\`\`bash
+```bash
 git clone <repository-url>
 cd career-counseling-app
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 3. Set up the database:
-\`\`\`bash
-# Run the database migration script
-npm run db:setup
-\`\`\`
+```bash
+# Generate Prisma client
+npm run db:generate
+
+# Push schema to database
+npm run db:push
+
+# Optional: Open Prisma Studio to manage data
+npm run db:studio
+```
 
 4. Start the development server:
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Usage
+## 🚀 Usage
 
 1. **Sign Up/Sign In**: Create an account or sign in to access the chat interface
-2. **Start Chatting**: Begin a conversation with the AI career counselor
-3. **Get Guidance**: Ask questions about career transitions, resume tips, interview preparation, salary negotiation, and more
-4. **Manage Sessions**: Create multiple chat sessions for different topics
-5. **Review History**: Access your previous conversations anytime
+2. **Start New Chat**: Click "New Chat" to create a draft session
+3. **Begin Conversation**: Type your first message - the session will be automatically saved with a smart title
+4. **Get AI Guidance**: Ask about career transitions, resume tips, interview prep, salary negotiation, and more
+5. **Manage Sessions**:
+   - Rename sessions by clicking the menu (⋯) next to each chat
+   - Delete unwanted conversations
+   - Browse all sessions with pagination
+6. **Session Navigation**: Click any session in the sidebar to continue previous conversations
+7. **Theme Toggle**: Switch between dark and light modes using the theme toggle in the sidebar
 
-## API Routes
+## 📡 API Routes
 
 - `GET/POST /api/trpc/[trpc]` - tRPC API endpoints for all backend functionality
+- `GET/POST /api/auth/[...nextauth]` - NextAuth.js authentication endpoints
 
-## Database Schema
+## 🗃️ Database Schema
 
-### chat_sessions
-- `id` (UUID) - Primary key
-- `title` (VARCHAR) - Session title
-- `user_id` (VARCHAR) - User identifier
-- `created_at` (TIMESTAMP) - Creation timestamp
-- `updated_at` (TIMESTAMP) - Last update timestamp
+### Sessions Table
+- `id` (String) - Primary key
+- `title` (String) - Session title (auto-generated from first message)
+- `userId` (String) - User identifier
+- `createdAt` (DateTime) - Creation timestamp
+- `updatedAt` (DateTime) - Last update timestamp
 
-### messages
-- `id` (UUID) - Primary key
-- `session_id` (UUID) - Foreign key to chat_sessions
-- `content` (TEXT) - Message content
-- `role` (VARCHAR) - 'user' or 'assistant'
-- `metadata` (JSONB) - Additional message data
-- `created_at` (TIMESTAMP) - Creation timestamp
+### Messages Table
+- `id` (String) - Primary key
+- `sessionId` (String) - Foreign key to sessions
+- `content` (String) - Message content
+- `role` (String) - 'user' or 'assistant'
+- `createdAt` (DateTime) - Creation timestamp
+
+### Key Features
+- **Draft Sessions**: Temporary sessions before first message
+- **Auto Titles**: Session titles generated from first 4 words of user's message
+- **Pagination**: Efficient session browsing with configurable page sizes
+- **Real-time Updates**: Instant UI updates with optimistic updates
 
 ## Deployment
 
@@ -113,29 +142,46 @@ npm run dev
 ### Manual Deployment
 
 1. Build the application:
-\`\`\`bash
+```bash
 npm run build
-\`\`\`
+```
 
 2. Start the production server:
-\`\`\`bash
+```bash
 npm start
-\`\`\`
+```
 
-## Contributing
+## 🚧 Development Features
+
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run db:generate` - Generate Prisma client
+- `npm run db:push` - Push schema to database
+- `npm run db:studio` - Open Prisma Studio
+
+### Key Components
+- **ChatInterface**: Main chat component with markdown support
+- **ChatSidebar**: Session management and navigation
+- **UserMenu**: Simple authentication menu
+- **ThemeToggle**: Dark/light mode switcher
+- **TypingIndicator**: Real-time typing feedback
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+4. Commit changes (`git commit -m 'Add amazing feature'`)
+5. Push to branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License.
 
-## Support
+## 🆘 Support
 
 For support, please open an issue on GitHub or contact the development team.
-# asg-oration
-# asg-oration

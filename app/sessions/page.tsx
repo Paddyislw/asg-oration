@@ -191,8 +191,8 @@ export default function SessionsPage() {
         </div>
 
         {/* Desktop Header */}
-        <div className="hidden lg:flex items-center p-6 border-b border-border/30">
-          <h1 className="text-3xl font-bold">All Sessions</h1>
+        <div className="hidden lg:flex items-center py-3 px-6 border-b border-border/30">
+          <h1 className="text-2xl font-bold">All Sessions</h1>
         </div>
 
         <div className="flex-1 overflow-auto p-6">
