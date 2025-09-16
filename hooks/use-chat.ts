@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react"
 import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { trpc } from "@/lib/trpc/client"
 
@@ -31,6 +32,7 @@ export function useChat() {
   const [aiThinkingPhase, setAiThinkingPhase] = useState<'thinking' | 'processing' | 'responding'>('thinking')
   const [tempMessages, setTempMessages] = useState<Message[]>([])
   const { data: session } = useSession()
+  const router = useRouter()
   const user = session?.user
 
   // tRPC queries and mutations
@@ -82,9 +84,13 @@ export function useChat() {
       setCurrentSessionId("draft-session") // Temporary ID
       setDraftSessionTitle(title || "New Session")
       setTempMessages([]) // Clear any existing temp messages
+
+      // Clear URL parameters for draft session
+      router.replace("/", { scroll: false })
+
       toast.success("New chat session ready")
     },
-    [user?.id],
+    [user?.id, router],
   )
 
   // Send a message in the current session
@@ -109,6 +115,9 @@ export function useChat() {
           setCurrentSessionId(sessionId)
           setIsDraftSession(false) // No longer a draft
           setDraftSessionTitle("")
+
+          // Update URL with new session ID
+          router.replace(`/?session=${sessionId}`, { scroll: false })
         } catch (error) {
           toast.error("Failed to create new session")
           console.error("Create session error:", error)
@@ -148,19 +157,29 @@ export function useChat() {
         setAiThinkingPhase('thinking') // Reset to default
       }
     },
-    [currentSessionId, user?.id, createSessionMutation, sendMessageMutation],
+    [currentSessionId, isDraftSession, user?.id, createSessionMutation, sendMessageMutation, router],
   )
 
   // Select a chat session
   const selectSession = useCallback((sessionId: string) => {
+    console.log("[useChat] selectSession called with:", sessionId)
+    console.log("[useChat] Current session ID:", currentSessionId)
+
     if (sessionId === "draft-session") {
       // Don't allow selecting the draft session ID directly
+      console.log("[useChat] Ignoring draft-session selection")
       return
     }
+
+    console.log("[useChat] Setting session ID to:", sessionId)
     setCurrentSessionId(sessionId)
     setIsDraftSession(false) // Not a draft when selecting existing session
     setTempMessages([]) // Clear temp messages when switching sessions
-  }, [])
+
+    // Update URL with selected session ID
+    console.log("[useChat] Updating URL to:", `/?session=${sessionId}`)
+    router.replace(`/?session=${sessionId}`, { scroll: false })
+  }, [router, currentSessionId])
 
   // Update session title
   const updateSessionTitle = useCallback(
@@ -194,6 +213,9 @@ export function useChat() {
         if (currentSessionId === sessionId) {
           setCurrentSessionId(null)
           setTempMessages([]) // Clear temp messages when deleting current session
+
+          // Clear URL when deleting current session
+          router.replace("/", { scroll: false })
         }
         toast.success("Chat session deleted")
       } catch (error) {
@@ -201,7 +223,7 @@ export function useChat() {
         console.error("Delete session error:", error)
       }
     },
-    [currentSessionId, isDraftSession, deleteSessionMutation],
+    [currentSessionId, isDraftSession, deleteSessionMutation, router],
   )
 
   return {

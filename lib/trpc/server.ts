@@ -25,6 +25,29 @@ export const appRouter = router({
       }))
     }),
 
+  // Get paginated sessions
+  getSessionsPaginated: publicProcedure
+    .input(z.object({
+      userId: z.string(),
+      page: z.number().min(1).default(1),
+      limit: z.number().min(1).max(50).default(20)
+    }))
+    .query(async ({ input }) => {
+      const result = await chatSessionQueries.getPaginated(input.userId, input.page, input.limit)
+      return {
+        sessions: result.sessions.map(session => ({
+          ...session,
+          createdAt: session.createdAt.toISOString(),
+          updatedAt: session.updatedAt.toISOString(),
+        })),
+        total: result.total,
+        hasMore: result.hasMore,
+        page: input.page,
+        limit: input.limit,
+        totalPages: Math.ceil(result.total / input.limit)
+      }
+    }),
+
   // Create session
   createSession: publicProcedure
     .input(z.object({ title: z.string().optional(), userId: z.string() }))

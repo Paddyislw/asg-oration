@@ -2,18 +2,23 @@
 
 import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
+import { useSearchParams } from "next/navigation"
 import { ChatInterface } from "@/components/chat/chat-interface"
 import { ChatSidebar } from "@/components/chat/chat-sidebar"
 import { SignInForm } from "@/components/auth/sign-in-form"
 import { UserMenu } from "@/components/auth/user-menu"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, History } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useChat } from "@/hooks/use-chat"
 import { Toaster } from "sonner"
 
 export default function HomePage() {
   const { data: session, status } = useSession()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const sessionParam = searchParams.get('session')
   const authLoading = status === "loading"
   const user = session?.user
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -37,16 +42,29 @@ export default function HomePage() {
     refetchSessions, // Assuming refetchSessions is part of useChat hook
   } = useChat()
 
+  // Handle URL session parameter - only on initial load
+  useEffect(() => {
+    console.log("[v0] URL param effect - sessionParam:", sessionParam, "currentSessionId:", currentSessionId)
+    if (sessionParam && sessions.length > 0 && session?.user?.id && !currentSessionId) {
+      const sessionExists = sessions.find(s => s.id === sessionParam)
+      console.log("[v0] Session exists:", !!sessionExists)
+      if (sessionExists) {
+        console.log("[v0] Selecting session from URL:", sessionParam)
+        selectSession(sessionParam)
+      }
+    }
+  }, [sessionParam, sessions, currentSessionId, selectSession, session?.user?.id])
+
   useEffect(() => {
     // Sessions will only be created when user sends first message
   }, [session?.user?.id, isLoadingSessions, sessions.length, currentSessionId, createSession])
 
   useEffect(() => {
-    if (session?.user?.id && !currentSessionId && sessions.length > 0) {
+    if (session?.user?.id && !currentSessionId && !sessionParam && sessions.length > 0) {
       console.log("[v0] Selecting first session:", sessions[0].id)
       selectSession(sessions[0].id)
     }
-  }, [session?.user?.id, currentSessionId, sessions.length, selectSession])
+  }, [session?.user?.id, currentSessionId, sessionParam, sessions.length, selectSession])
 
   useEffect(() => {
     if (session?.user?.id) {
@@ -73,6 +91,7 @@ export default function HomePage() {
 
   // Handle selecting a chat session
   const handleSelectSession = (sessionId: string) => {
+    console.log("[v0] Sidebar session click:", sessionId)
     selectSession(sessionId)
     setSidebarOpen(false) // Close sidebar on mobile after selection
   }
@@ -143,13 +162,34 @@ export default function HomePage() {
             </Button>
             <h1 className="font-semibold text-card-foreground">Career Counseling AI</h1>
           </div>
-          <UserMenu />
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.push("/sessions")}
+              className="text-card-foreground"
+            >
+              <History className="h-4 w-4" />
+            </Button>
+            <UserMenu />
+          </div>
         </div>
 
         {/* Desktop Header */}
         <div className="hidden lg:flex items-center justify-between p-4 border-b border-border bg-card">
           <h1 className="text-xl font-semibold text-card-foreground">Career Counseling AI</h1>
-          <UserMenu />
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.push("/sessions")}
+              className="flex items-center gap-2"
+            >
+              <History className="h-4 w-4" />
+              View All Sessions
+            </Button>
+            <UserMenu />
+          </div>
         </div>
 
         {/* Chat Interface */}
