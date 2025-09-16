@@ -26,6 +26,7 @@ interface Message {
 export function useChat() {
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null)
   const [isSending, setIsSending] = useState(false)
+  const [aiThinkingPhase, setAiThinkingPhase] = useState<'thinking' | 'processing' | 'responding'>('thinking')
   const [tempMessages, setTempMessages] = useState<Message[]>([])
   const { data: session } = useSession()
   const user = session?.user
@@ -139,8 +140,13 @@ export function useChat() {
       // Add temp message immediately
       setTempMessages([tempUserMessage])
       setIsSending(true)
+      setAiThinkingPhase('thinking')
 
       try {
+        // Simulate thinking phases for better UX
+        setTimeout(() => setAiThinkingPhase('processing'), 800)
+        setTimeout(() => setAiThinkingPhase('responding'), 1600)
+
         await sendMessageMutation.mutateAsync({
           sessionId,
           content,
@@ -151,6 +157,7 @@ export function useChat() {
         console.error("Send message error:", error)
       } finally {
         setIsSending(false)
+        setAiThinkingPhase('thinking') // Reset to default
       }
     },
     [currentSessionId, user?.id, createSessionMutation, sendMessageMutation],
@@ -198,6 +205,7 @@ export function useChat() {
     // State
     currentSessionId,
     isSending,
+    aiThinkingPhase,
     isLoading: isLoadingSessions || isLoadingMessages,
 
     // Data

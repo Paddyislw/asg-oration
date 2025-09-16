@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -27,19 +27,59 @@ interface ChatInterfaceProps {
   onSendMessage?: (message: string) => Promise<void>
   messages?: Message[]
   isLoading?: boolean
+  aiThinkingPhase?: 'thinking' | 'processing' | 'responding'
+  onTypingChange?: (isTyping: boolean) => void
 }
 
-export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoading = false }: ChatInterfaceProps) {
+export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoading = false, aiThinkingPhase = 'thinking', onTypingChange }: ChatInterfaceProps) {
   const [inputValue, setInputValue] = useState("")
+  const [isUserTyping, setIsUserTyping] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
     }
-  }, [messages])
+  }, [messages, isLoading])
+
+  // Handle typing detection
+  const handleTypingChange = useCallback((isTyping: boolean) => {
+    setIsUserTyping(isTyping)
+    onTypingChange?.(isTyping)
+  }, [onTypingChange])
+
+  // Debounced typing detection
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setInputValue(value)
+
+    // Clear existing timeout
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current)
+    }
+
+    // If user is typing, set typing to true
+    if (value.length > 0 && !isUserTyping) {
+      handleTypingChange(true)
+    }
+
+    // Set timeout to stop typing indicator after 1 second of no typing
+    typingTimeoutRef.current = setTimeout(() => {
+      handleTypingChange(false)
+    }, 1000)
+  }, [isUserTyping, handleTypingChange])
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current)
+      }
+    }
+  }, [])
 
   // Handle sending messages
   const handleSendMessage = async () => {
@@ -47,6 +87,12 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
 
     const messageContent = inputValue.trim()
     setInputValue("")
+
+    // Stop typing indicator when message is sent
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current)
+    }
+    handleTypingChange(false)
 
     try {
       if (onSendMessage) {
@@ -155,7 +201,7 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
             ))
           )}
 
-          {/* Typing Indicator */}
+          {/* AI Thinking Indicator */}
           {isLoading && (
             <div className="flex gap-3 max-w-[80%] mr-auto">
               <Avatar className="h-8 w-8 flex-shrink-0">
@@ -164,13 +210,17 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
                 </AvatarFallback>
               </Avatar>
               <Card className="p-3 bg-card text-card-foreground">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
                   <div className="flex gap-1">
                     <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce [animation-delay:-0.3s]" />
                     <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce [animation-delay:-0.15s]" />
                     <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" />
                   </div>
-                  <span className="text-xs text-muted-foreground ml-2">AI is thinking...</span>
+                  <span className="text-xs text-muted-foreground">
+                    {aiThinkingPhase === 'thinking' && 'AI is thinking...'}
+                    {aiThinkingPhase === 'processing' && 'Processing your request...'}
+                    {aiThinkingPhase === 'responding' && 'Preparing response...'}
+                  </span>
                 </div>
               </Card>
             </div>
@@ -184,7 +234,7 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
           <Input
             ref={inputRef}
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             placeholder="Ask me about your career goals, job search, or professional development..."
             className="flex-1 bg-input border-border text-foreground placeholder:text-muted-foreground"
@@ -199,7 +249,20 @@ export function ChatInterface({ sessionId, onSendMessage, messages = [], isLoadi
             <Send className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground mt-2 text-center">Press Enter to send • Shift+Enter for new line</p>
+        {/* User Typing Indicator */}
+        {isUserTyping && !isLoading && (
+          <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+            <div className="flex gap-1">
+              <div className="w-1 h-1 bg-current rounded-full animate-pulse" />
+              <div className="w-1 h-1 bg-current rounded-full animate-pulse [animation-delay:-0.2s]" />
+              <div className="w-1 h-1 bg-current rounded-full animate-pulse [animation-delay:-0.4s]" />
+            </div>
+            <span>You are typing...</span>
+          </div>
+        )}
+        {!isUserTyping && (
+          <p className="text-xs text-muted-foreground mt-2 text-center">Press Enter to send • Shift+Enter for new line</p>
+        )}
       </div>
     </div>
   )

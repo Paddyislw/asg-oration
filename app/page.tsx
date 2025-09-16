@@ -22,6 +22,7 @@ export default function HomePage() {
     currentSessionId,
     isLoading,
     isSending,
+    aiThinkingPhase,
     sessions,
     messages,
     isLoadingSessions,
@@ -154,6 +155,7 @@ export default function HomePage() {
             onSendMessage={sendMessage}
             messages={formattedMessages}
             isLoading={isLoading || isLoadingMessages || isSending}
+            aiThinkingPhase={aiThinkingPhase}
           />
         </div>
       </div>
