@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Settings, User, Crown } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { toast } from "sonner";
 
 export function UserMenu() {
@@ -59,64 +59,13 @@ export function UserMenu() {
           <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-background" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-64 p-2" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal p-3">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-12 w-12">
-              <AvatarImage
-                src={user.image || "/placeholder.svg"}
-                alt={user.name || "User"}
-              />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-semibold">
-                {initials}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col space-y-1">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-semibold leading-none">
-                  {user.name || "User"}
-                </p>
-                <Crown className="h-3 w-3 text-primary" />
-              </div>
-              <p className="text-xs leading-none text-muted-foreground">
-                {user.email}
-              </p>
-              <div className="flex items-center gap-1 mt-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full" />
-                <span className="text-xs text-muted-foreground">Online</span>
-              </div>
-            </div>
-          </div>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="p-3 cursor-pointer hover:bg-accent/50 transition-colors">
-          <User className="mr-3 h-4 w-4" />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Profile</span>
-            <span className="text-xs text-muted-foreground">
-              Manage your account
-            </span>
-          </div>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="p-3 cursor-pointer hover:bg-accent/50 transition-colors">
-          <Settings className="mr-3 h-4 w-4" />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Settings</span>
-            <span className="text-xs text-muted-foreground">
-              Preferences & privacy
-            </span>
-          </div>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="w-48" align="end" forceMount>
         <DropdownMenuItem
           onClick={handleSignOut}
-          className="p-3 cursor-pointer hover:bg-destructive/10 hover:text-destructive transition-colors"
+          className="p-3 cursor-pointer hover:bg-destructive/10 hover:text-destructive transition-colors focus:bg-destructive/10 focus:text-destructive"
         >
           <LogOut className="mr-3 h-4 w-4" />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">Sign out</span>
-            <span className="text-xs opacity-70">End your session</span>
-          </div>
+          <span className="text-sm font-medium">Sign out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

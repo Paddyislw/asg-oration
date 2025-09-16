@@ -166,15 +166,31 @@ export default function HomePage() {
 
       {/* Main Chat Area - Full Screen */}
       <div className="flex-1 flex flex-col min-w-0">
-        <ChatInterface
-          sessionId={currentSessionId || undefined}
-          onSendMessage={sendMessage}
-          messages={formattedMessages}
-          isLoading={isLoading || isLoadingMessages || isSending}
-          aiThinkingPhase={aiThinkingPhase}
-          onMobileMenuToggle={() => setSidebarOpen(!sidebarOpen)}
-          showMobileMenuToggle={true}
-        />
+        {isLoadingSessions || isLoadingMessages ? (
+          <div className="flex items-center justify-center h-full bg-background">
+            <div className="text-center space-y-4">
+              <div className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+              <div className="space-y-2">
+                <h3 className="text-lg font-medium text-foreground">
+                  {isLoadingSessions ? "Loading your sessions..." : "Loading messages..."}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Please wait a moment
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <ChatInterface
+            sessionId={currentSessionId || undefined}
+            onSendMessage={sendMessage}
+            messages={formattedMessages}
+            isLoading={isSending}
+            aiThinkingPhase={aiThinkingPhase}
+            onMobileMenuToggle={() => setSidebarOpen(!sidebarOpen)}
+            showMobileMenuToggle={true}
+          />
+        )}
       </div>
     </div>
   );
