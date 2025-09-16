@@ -25,6 +25,8 @@ interface Message {
 // Custom hook for managing chat functionality
 export function useChat() {
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null)
+  const [isDraftSession, setIsDraftSession] = useState(false) // New state for draft sessions
+  const [draftSessionTitle, setDraftSessionTitle] = useState("New Session")
   const [isSending, setIsSending] = useState(false)
   const [aiThinkingPhase, setAiThinkingPhase] = useState<'thinking' | 'processing' | 'responding'>('thinking')
   const [tempMessages, setTempMessages] = useState<Message[]>([])
@@ -42,10 +44,10 @@ export function useChat() {
     data: dbMessages = [],
     isLoading: isLoadingMessages,
     refetch: refetchMessages,
-  } = trpc.getMessages.useQuery({ sessionId: currentSessionId! }, { enabled: !!currentSessionId })
+  } = trpc.getMessages.useQuery({ sessionId: currentSessionId! }, { enabled: !!currentSessionId && !isDraftSession })
 
-  // Combine real messages with temp messages
-  const messages = [...dbMessages, ...tempMessages]
+  // Combine real messages with temp messages (only use temp messages for draft sessions)
+  const messages = isDraftSession ? tempMessages : [...dbMessages, ...tempMessages]
 
   const createSessionMutation = trpc.createSession.useMutation({
     onSuccess: () => refetchSessions(),
@@ -70,35 +72,19 @@ export function useChat() {
     },
   })
 
-  // Create a new chat session
+  // Create a new draft chat session (not saved to DB yet)
   const createSession = useCallback(
     async (title?: string) => {
       if (!user?.id) return
 
-      try {
-        const sessionTitle =
-          title ||
-          `Chat Session ${new Date().toLocaleString("en-US", {
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-          })}`
-
-        const result = await createSessionMutation.mutateAsync({
-          title: sessionTitle,
-          userId: user.id,
-        })
-
-        setCurrentSessionId(result.id)
-        toast.success("New chat session created")
-      } catch (error) {
-        toast.error("Failed to create new session")
-        console.error("Create session error:", error)
-      }
+      // Create a draft session that's not saved to DB yet
+      setIsDraftSession(true)
+      setCurrentSessionId("draft-session") // Temporary ID
+      setDraftSessionTitle(title || "New Session")
+      setTempMessages([]) // Clear any existing temp messages
+      toast.success("New chat session ready")
     },
-    [user?.id, createSessionMutation],
+    [user?.id],
   )
 
   // Send a message in the current session
@@ -108,10 +94,10 @@ export function useChat() {
 
       let sessionId = currentSessionId
 
-      // Create new session if none exists
-      if (!sessionId) {
+      // Handle draft session - create real session with message title
+      if (isDraftSession || !sessionId) {
         const words = content.trim().split(/\s+/)
-        const sessionTitle = words.slice(0, 3).join(" ") || "New Chat"
+        const sessionTitle = words.slice(0, 4).join(" ") || "New Chat" // Take first 4 words
 
         try {
           const result = await createSessionMutation.mutateAsync({
@@ -121,6 +107,8 @@ export function useChat() {
 
           sessionId = result.id
           setCurrentSessionId(sessionId)
+          setIsDraftSession(false) // No longer a draft
+          setDraftSessionTitle("")
         } catch (error) {
           toast.error("Failed to create new session")
           console.error("Create session error:", error)
@@ -165,7 +153,12 @@ export function useChat() {
 
   // Select a chat session
   const selectSession = useCallback((sessionId: string) => {
+    if (sessionId === "draft-session") {
+      // Don't allow selecting the draft session ID directly
+      return
+    }
     setCurrentSessionId(sessionId)
+    setIsDraftSession(false) // Not a draft when selecting existing session
     setTempMessages([]) // Clear temp messages when switching sessions
   }, [])
 
@@ -186,6 +179,16 @@ export function useChat() {
   // Delete a session
   const deleteSession = useCallback(
     async (sessionId: string) => {
+      // Handle draft session deletion
+      if (sessionId === "draft-session" || isDraftSession) {
+        setCurrentSessionId(null)
+        setIsDraftSession(false)
+        setTempMessages([])
+        setDraftSessionTitle("")
+        toast.success("Draft session cleared")
+        return
+      }
+
       try {
         await deleteSessionMutation.mutateAsync({ sessionId })
         if (currentSessionId === sessionId) {
@@ -198,12 +201,14 @@ export function useChat() {
         console.error("Delete session error:", error)
       }
     },
-    [currentSessionId, deleteSessionMutation],
+    [currentSessionId, isDraftSession, deleteSessionMutation],
   )
 
   return {
     // State
     currentSessionId,
+    isDraftSession,
+    draftSessionTitle,
     isSending,
     aiThinkingPhase,
     isLoading: isLoadingSessions || isLoadingMessages,

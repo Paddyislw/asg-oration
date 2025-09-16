@@ -20,6 +20,8 @@ export default function HomePage() {
 
   const {
     currentSessionId,
+    isDraftSession,
+    draftSessionTitle,
     isLoading,
     isSending,
     aiThinkingPhase,
@@ -116,6 +118,8 @@ export default function HomePage() {
         <ChatSidebar
           sessions={sessions}
           currentSessionId={currentSessionId || undefined}
+          isDraftSession={isDraftSession}
+          draftSessionTitle={draftSessionTitle}
           onSelectSession={handleSelectSession}
           onCreateSession={handleCreateSession}
           onDeleteSession={handleDeleteSession}

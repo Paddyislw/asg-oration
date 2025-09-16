@@ -23,6 +23,8 @@ interface ChatSession {
 interface ChatSidebarProps {
   sessions?: ChatSession[]
   currentSessionId?: string
+  isDraftSession?: boolean
+  draftSessionTitle?: string
   onSelectSession?: (sessionId: string) => void
   onCreateSession?: () => void
   onDeleteSession?: (sessionId: string) => void
@@ -33,6 +35,8 @@ interface ChatSidebarProps {
 export function ChatSidebar({
   sessions = [],
   currentSessionId,
+  isDraftSession = false,
+  draftSessionTitle = "",
   onSelectSession,
   onCreateSession,
   onDeleteSession,
@@ -89,13 +93,45 @@ export function ChatSidebar({
       {/* Chat Sessions List */}
       <ScrollArea className="flex-1 p-2">
         <div className="space-y-2">
-          {sessions.length === 0 ? (
+          {/* Draft Session Display */}
+          {isDraftSession && (
+            <Card
+              className={cn(
+                "p-3 cursor-pointer transition-colors border-dashed border-2",
+                "bg-muted/50 text-muted-foreground hover:bg-muted/70",
+                "border-primary/50"
+              )}
+              onClick={() => {}} // Do nothing since it's already selected
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-medium truncate italic">{draftSessionTitle}</h3>
+                  <p className="text-xs opacity-70 mt-1">Draft • Type a message to save</p>
+                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="h-6 w-6 p-0 opacity-50 hover:opacity-100">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-[160px]">
+                    <DropdownMenuItem onClick={() => onDeleteSession?.("draft-session")} className="text-destructive">
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Clear Draft
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </Card>
+          )}
+
+          {sessions.length === 0 && !isDraftSession ? (
             <div className="flex flex-col items-center justify-center h-32 text-center px-4">
               <MessageSquare className="h-8 w-8 text-sidebar-foreground/50 mb-2" />
               <p className="text-sm text-sidebar-foreground/70">No chat sessions yet</p>
               <p className="text-xs text-sidebar-foreground/50">Start a new conversation</p>
             </div>
-          ) : (
+          ) : sessions.length > 0 ? (
             sessions.map((session) => (
               <Card
                 key={session.id}
@@ -196,7 +232,7 @@ export function ChatSidebar({
                 </div>
               </Card>
             ))
-          )}
+          ) : null}
         </div>
       </ScrollArea>
 
