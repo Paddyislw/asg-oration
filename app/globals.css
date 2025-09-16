@@ -1,27 +1,127 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Updated color tokens to match career counseling app design brief */
+  --background: #0a0a0b;
+  --foreground: #ffffff;
+  --card: #27272a;
+  --card-foreground: #ffffff;
+  --popover: #27272a;
+  --popover-foreground: #ffffff;
+  --primary: #f53d05;
+  --primary-foreground: #ffffff;
+  --secondary: #cfcfcf;
+  --secondary-foreground: #0a0a0b;
+  --muted: #cfcfcf;
+  --muted-foreground: #666666;
+  --accent: #f53d05;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4c4c;
+  --destructive-foreground: #ffffff;
+  --border: #444444;
+  --input: #27272a;
+  --ring: rgba(245, 61, 5, 0.5);
+  --chart-1: #f53d05;
+  --chart-2: #ff7a00;
+  --chart-3: #ffb300;
+  --chart-4: #ffd700;
+  --chart-5: #fff000;
+  --radius: 0.5rem;
+  --sidebar: #27272a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #0a0a0b;
+  --sidebar-primary-foreground: #f53d05;
+  --sidebar-accent: #f53d05;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #444444;
+  --sidebar-ring: rgba(245, 61, 5, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  /* Dark mode uses same colors as this is already a dark theme */
+  --background: #0a0a0b;
+  --foreground: #ffffff;
+  --card: #27272a;
+  --card-foreground: #ffffff;
+  --popover: #27272a;
+  --popover-foreground: #ffffff;
+  --primary: #f53d05;
+  --primary-foreground: #ffffff;
+  --secondary: #cfcfcf;
+  --secondary-foreground: #0a0a0b;
+  --muted: #cfcfcf;
+  --muted-foreground: #666666;
+  --accent: #f53d05;
+  --accent-foreground: #ffffff;
+  --destructive: #ff4c4c;
+  --destructive-foreground: #ffffff;
+  --border: #444444;
+  --input: #27272a;
+  --ring: rgba(245, 61, 5, 0.5);
+  --chart-1: #f53d05;
+  --chart-2: #ff7a00;
+  --chart-3: #ffb300;
+  --chart-4: #ffd700;
+  --chart-5: #fff000;
+  --sidebar: #27272a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #0a0a0b;
+  --sidebar-primary-foreground: #f53d05;
+  --sidebar-accent: #f53d05;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #444444;
+  --sidebar-ring: rgba(245, 61, 5, 0.5);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+* {
+  border-color: var(--color-border);
+  outline-color: color-mix(in srgb, var(--color-ring) 50%, transparent);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  background-color: var(--color-background);
+  color: var(--color-foreground);
 }
