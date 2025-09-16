@@ -1,27 +1,23 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useSession } from "next-auth/react"
-import { useSearchParams } from "next/navigation"
-import { ChatInterface } from "@/components/chat/chat-interface"
-import { ChatSidebar } from "@/components/chat/chat-sidebar"
-import { SignInForm } from "@/components/auth/sign-in-form"
-import { UserMenu } from "@/components/auth/user-menu"
-import { Button } from "@/components/ui/button"
-import { Menu, X, History } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { useChat } from "@/hooks/use-chat"
-import { Toaster } from "sonner"
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
+import { ChatInterface } from "@/components/chat/chat-interface";
+import { ChatSidebar } from "@/components/chat/chat-sidebar";
+import { SignInForm } from "@/components/auth/sign-in-form";
+import { cn } from "@/lib/utils";
+import { useChat } from "@/hooks/use-chat";
+import { Toaster } from "sonner";
+import { Sparkles } from "lucide-react";
 
 export default function HomePage() {
-  const { data: session, status } = useSession()
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const sessionParam = searchParams.get('session')
-  const authLoading = status === "loading"
-  const user = session?.user
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { data: session, status } = useSession();
+  const searchParams = useSearchParams();
+  const sessionParam = searchParams.get("session");
+  const authLoading = status === "loading";
+  const user = session?.user;
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const {
     currentSessionId,
@@ -39,95 +35,120 @@ export default function HomePage() {
     selectSession,
     updateSessionTitle,
     deleteSession,
-    refetchSessions, // Assuming refetchSessions is part of useChat hook
-  } = useChat()
+    refetchSessions,
+  } = useChat();
 
-  // Handle URL session parameter - only on initial load
   useEffect(() => {
-    if (sessionParam && sessions.length > 0 && session?.user?.id && !currentSessionId) {
-      const sessionExists = sessions.find(s => s.id === sessionParam)
+    if (
+      sessionParam &&
+      sessions.length > 0 &&
+      session?.user?.id &&
+      !currentSessionId
+    ) {
+      const sessionExists = sessions.find((s) => s.id === sessionParam);
       if (sessionExists) {
-        selectSession(sessionParam)
+        selectSession(sessionParam);
       }
     }
-  }, [sessionParam, sessions, currentSessionId, selectSession, session?.user?.id])
+  }, [
+    sessionParam,
+    sessions,
+    currentSessionId,
+    selectSession,
+    session?.user?.id,
+  ]);
 
   useEffect(() => {
-    // Sessions will only be created when user sends first message
-  }, [session?.user?.id, isLoadingSessions, sessions.length, currentSessionId, createSession])
-
-  useEffect(() => {
-    if (session?.user?.id && !currentSessionId && !sessionParam && sessions.length > 0) {
-      console.log("[v0] Selecting first session:", sessions[0].id)
-      selectSession(sessions[0].id)
+    if (
+      session?.user?.id &&
+      !currentSessionId &&
+      !sessionParam &&
+      sessions.length > 0
+    ) {
+      selectSession(sessions[0].id);
     }
-  }, [session?.user?.id, currentSessionId, sessionParam, sessions.length, selectSession])
+  }, [
+    session?.user?.id,
+    currentSessionId,
+    sessionParam,
+    sessions.length,
+    selectSession,
+  ]);
 
   useEffect(() => {
     if (session?.user?.id) {
-      console.log("[v0] User authenticated, loading sessions...")
-      refetchSessions()
+      refetchSessions();
     }
-  }, [session?.user?.id, refetchSessions])
+  }, [session?.user?.id, refetchSessions]);
 
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <h2 className="text-xl font-semibold text-foreground mb-2">Loading...</h2>
-          <p className="text-muted-foreground">Checking authentication</p>
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-background via-background to-muted/20">
+        <div className="text-center space-y-6">
+          <div className="relative">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            </div>
+            <Sparkles className="absolute -top-1 -right-1 h-5 w-5 text-primary animate-pulse" />
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold text-foreground">
+              Loading Career AI
+            </h2>
+            <p className="text-muted-foreground">
+              Preparing your personalized experience...
+            </p>
+          </div>
         </div>
       </div>
-    )
+    );
   }
 
   if (!user) {
-    return <SignInForm />
+    return <SignInForm />;
   }
 
-  // Handle selecting a chat session
   const handleSelectSession = (sessionId: string) => {
-    selectSession(sessionId)
-    setSidebarOpen(false) // Close sidebar on mobile after selection
-  }
+    selectSession(sessionId);
+    setSidebarOpen(false);
+  };
 
-  // Handle creating a new session
   const handleCreateSession = () => {
-    createSession()
-  }
+    createSession();
+  };
 
-  // Handle deleting a session
   const handleDeleteSession = (sessionId: string) => {
-    deleteSession(sessionId)
-  }
+    deleteSession(sessionId);
+  };
 
-  // Handle renaming a session
   const handleRenameSession = (sessionId: string, newTitle: string) => {
-    updateSessionTitle(sessionId, newTitle)
-  }
+    updateSessionTitle(sessionId, newTitle);
+  };
 
   const formattedMessages = messages.map((msg) => ({
     id: msg.id,
     content: msg.content,
     role: msg.role as "user" | "assistant",
-    timestamp: new Date(msg.createdAt), // Fixed property name from created_at to createdAt
-  }))
+    timestamp: new Date(msg.createdAt),
+  }));
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background overflow-hidden">
       <Toaster position="top-right" />
 
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-200"
+          onClick={() => setSidebarOpen(false)}
+        />
       )}
 
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-80 transform transition-transform duration-200 ease-in-out lg:relative lg:translate-x-0",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full",
+          "fixed inset-y-0 left-0 z-50 w-80 transform transition-transform duration-300 ease-out lg:relative lg:translate-x-0",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <ChatSidebar
@@ -143,62 +164,18 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Main Chat Area */}
+      {/* Main Chat Area - Full Screen */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile Header */}
-        <div className="lg:hidden flex items-center justify-between gap-2 p-4 border-b border-border bg-card">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-card-foreground"
-            >
-              {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-            <h1 className="font-semibold text-card-foreground">Career Counseling AI</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => router.push("/sessions")}
-              className="text-card-foreground"
-            >
-              <History className="h-4 w-4" />
-            </Button>
-            <UserMenu />
-          </div>
-        </div>
-
-        {/* Desktop Header */}
-        <div className="hidden lg:flex items-center justify-between p-4 border-b border-border bg-card">
-          <h1 className="text-xl font-semibold text-card-foreground">Career Counseling AI</h1>
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => router.push("/sessions")}
-              className="flex items-center gap-2"
-            >
-              <History className="h-4 w-4" />
-              View All Sessions
-            </Button>
-            <UserMenu />
-          </div>
-        </div>
-
-        {/* Chat Interface */}
-        <div className="flex-1">
-          <ChatInterface
-            sessionId={currentSessionId || undefined}
-            onSendMessage={sendMessage}
-            messages={formattedMessages}
-            isLoading={isLoading || isLoadingMessages || isSending}
-            aiThinkingPhase={aiThinkingPhase}
-          />
-        </div>
+        <ChatInterface
+          sessionId={currentSessionId || undefined}
+          onSendMessage={sendMessage}
+          messages={formattedMessages}
+          isLoading={isLoading || isLoadingMessages || isSending}
+          aiThinkingPhase={aiThinkingPhase}
+          onMobileMenuToggle={() => setSidebarOpen(!sidebarOpen)}
+          showMobileMenuToggle={true}
+        />
       </div>
     </div>
-  )
+  );
 }
