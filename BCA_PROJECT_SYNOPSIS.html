@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA Project Synopsis - ASG-Oration</title>
+    <style>
+        /* Print-optimized CSS for BCA Synopsis */
+        
+        @page {
+            size: A4;
+            margin: 2.54cm 2.54cm 2.54cm 3.81cm;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            h1 {
+                page-break-before: always;
+            }
+            
+            h1:first-of-type {
+                page-break-before: avoid;
+            }
+            
+            .no-page-break {
+                page-break-before: avoid;
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #1f2937;
+            text-align: justify;
+            background: white;
+            max-width: 21cm;
+            margin: 0 auto;
+            padding: 2.54cm 2.54cm 2.54cm 3.81cm;
+        }
+        
+        /* Cover Page */
+        .cover-page {
+            text-align: center;
+            padding: 3cm 0;
+        }
+        
+        .cover-page h1 {
+            font-size: 24pt;
+            color: #1e40af;
+            margin: 1cm 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 3px solid #1e40af;
+            padding: 20px;
+            line-height: 1.3;
+        }
+        
+        .cover-page .university {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 0.5cm;
+            border-bottom: 2pt solid #1e40af;
+            padding-bottom: 10px;
+        }
+        
+        .cover-page .synopsis-heading {
+            font-size: 20pt;
+            font-weight: bold;
+            margin: 1cm 0 0.5cm 0;
+        }
+        
+        .cover-page .degree {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 1cm 0;
+        }
+        
+        .cover-page .submitted-by {
+            font-size: 14pt;
+            margin: 1.5cm 0;
+        }
+        
+        /* Headings */
+        h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1e40af;
+            text-transform: uppercase;
+            border-bottom: 2px solid #1e40af;
+            padding-bottom: 8px;
+            margin-top: 24pt;
+            margin-bottom: 12pt;
+            text-align: left;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1e40af;
+            margin-top: 18pt;
+            margin-bottom: 10pt;
+            text-align: left;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #64748b;
+            margin-top: 12pt;
+            margin-bottom: 8pt;
+            text-align: left;
+        }
+        
+        /* Paragraphs */
+        p {
+            margin: 6pt 0;
+            text-align: justify;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 6pt 0;
+            padding-left: 30pt;
+        }
+        
+        li {
+            margin: 3pt 0;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12pt 0;
+            font-size: 12pt;
+        }
+        
+        th {
+            background-color: #1e40af;
+            color: white;
+            padding: 8px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid #1e40af;
+        }
+        
+        td {
+            padding: 8px;
+            border: 1px solid #cbd5e1;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        /* Code blocks */
+        pre, code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 10pt;
+            background-color: #f1f5f9;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        code {
+            padding: 2px 4px;
+            font-size: 11pt;
+        }
+        
+        /* Horizontal rules */
+        hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 18pt 0;
+        }
+        
+        /* Table of Contents */
+        .toc {
+            margin: 20pt 0;
+        }
+        
+        .toc h1 {
+            text-align: center;
+        }
+        
+        /* Print instructions (hide when printing) */
+        .print-instructions {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        @media print {
+            .print-instructions {
+                display: none;
+            }
+        }
+        
+        .print-instructions h2 {
+            color: #b45309;
+            margin-top: 0;
+        }
+        
+        .print-instructions ol {
+            margin-left: 20px;
+        }
+        
+        .print-instructions code {
+            background: #fed7aa;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        /* Strong emphasis */
+        strong {
+            font-weight: bold;
+        }
+        
+        em {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Print Instructions (will be hidden when printing) -->
+<div class="print-instructions">
+    <h2>📄 How to Convert This to PDF</h2>
+    <p><strong>Follow these simple steps:</strong></p>
+    <ol>
+        <li><strong>Press Ctrl+P</strong> (Windows/Linux) or <strong>Cmd+P</strong> (Mac) to open print dialog</li>
+        <li>Select <strong>"Save as PDF"</strong> or <strong>"Microsoft Print to PDF"</strong> as the printer</li>
+        <li>Configure settings:
+            <ul>
+                <li>Paper size: <strong>A4</strong></li>
+                <li>Margins: <strong>Default</strong></li>
+                <li>Scale: <strong>100%</strong></li>
+                <li>Background graphics: <strong>Enabled</strong> (to show colors and tables)</li>
+            </ul>
+        </li>
+        <li>Click <strong>"Save"</strong> or <strong>"Print"</strong></li>
+        <li>Save as: <code>BCA_PROJECT_SYNOPSIS.pdf</code></li>
+    </ol>
+    <p><strong>✅ The PDF will be formatted according to BCA guidelines!</strong></p>
+    <p><em>Note: This instruction box will NOT appear in the PDF.</em></p>
+</div>
+
+
+<!-- Cover Page -->
+<div class="cover-page page-break">
+    <div class="university">UTTARANCHAL UNIVERSITY, DEHRADUN</div>
+    <hr style="border-top: 2pt solid #1e40af; margin: 10px 0;">
+    
+    <div class="synopsis-heading">Synopsis</div>
+    <div style="font-size: 16pt;">On</div>
+    
+    <h1 style="border: none; page-break-before: avoid;">ASG-ORATION: AI-POWERED CAREER COUNSELING PLATFORM</h1>
+    
+    <p style="font-style: italic; margin: 2cm 0 0.5cm 0;">
+        Submitted to the Uttaranchal University in partial fulfilment of the<br>
+        requirements for the award of the Degree of
+    </p>
+    
+    <div class="degree">BACHELOR OF COMPUTER APPLICATIONS</div>
+    
+    <div class="submitted-by">
+        <p><strong>Submitted by</strong><br>
+        [Student Name]<br>
+        (Learner ID: [Your Learner ID])</p>
+        
+        <p style="margin-top: 1.5cm;"><strong>Under the Guidance of</strong><br>
+        [Guide Name with Designation] (Faculty Guide)</p>
+    </div>
+    
+    <div style="margin-top: 2cm; font-size: 14pt; font-weight: bold;">
+        UTTARANCHAL UNIVERSITY, DEHRADUN<br>
+        <span style="font-weight: normal;">2025</span>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="page-break">
+<h1>Synopsis</h1>
+<h1>On</h1>
+<h1>"ASG-ORATION: AI-POWERED CAREER COUNSELING PLATFORM"</h1>
+
+<h2>Submitted to the Uttaranchal University in partial fulfilment of the requirements for the award of the Degree of</h2>
+
+<h2>BACHELOR OF COMPUTER APPLICATIONS</h2>
+
+<hr>
+
+<strong>Submitted by</strong>
+<p>
+[Student Name]
+(Learner ID: [Your Learner ID])
+</p>
+
+<strong>Under the Guidance of</strong>
+<p>
+[Guide Name with Designation] (Faculty Guide)
+</p>
+
+<strong>UTTARANCHAL UNIVERSITY, DEHRADUN</strong>
+
+<hr>
+
+<h1>Table of Contents</h1>
+
+| S.No | Topic | Page No |
+|------|-------|---------|
+| 1 | Introduction and Objectives of the Project | 3 |
+| 2 | Tools/Platform, Hardware and Software Requirement Specifications | 5 |
+| 3 | Problem Definition, Requirement Specifications, Project Planning and Scheduling | 7 |
+| 4 | Analysis (Data Models, DFDs, ER Diagrams, Class Diagrams) | 10 |
+| 5 | Complete Structure with Modules and Process Logic | 13 |
+| 6 | Proposed Security Mechanisms at Various Levels | 17 |
+| 7 | Future Scope and Further Enhancement of the Project | 18 |
+| 8 | Bibliography | 19 |
+
+<hr>
+
+<h1>1. INTRODUCTION AND OBJECTIVES OF THE PROJECT</h1>
+
+<h2>1.1 Introduction</h2>
+
+<p>
+In today's rapidly evolving professional landscape, individuals often face challenges in making informed career decisions, navigating career transitions, and optimizing their professional development. Traditional career counseling services are often expensive, time-consuming, and not readily accessible to everyone who needs guidance.
+</p>
+
+<strong>ASG-Oration</strong> (AI-Powered Career Counseling Platform) is a modern, full-stack web application designed to democratize access to career guidance by leveraging artificial intelligence. The platform provides intelligent, personalized career counseling through conversational AI interactions, making professional guidance accessible 24/7 to users worldwide.
+
+<p>
+The system utilizes Google's latest Gemini 2.0 Flash AI model to simulate an expert career counselor who can discuss various aspects of professional development including:
+</p>
+
+<ul>
+<li>Career transition strategies and planning</li>
+<li>Resume optimization and personal branding</li>
+<li>Interview preparation and techniques</li>
+<li>Salary negotiation strategies</li>
+<li>Skill development recommendations</li>
+<li>Industry-specific career advice</li>
+<li>Work-life balance guidance</li>
+<li>Professional networking strategies</li>
+</ul>
+
+<p>
+The platform maintains conversation history across multiple sessions, allowing users to build upon previous discussions and track their career development journey over time. Each user can create multiple counseling sessions, rename them for organization, and access their complete conversation history at any time.
+</p>
+
+<h2>1.2 Project Objectives</h2>
+
+<p>
+The primary objectives of the ASG-Oration project are:
+</p>
+
+<strong>1. Accessibility Enhancement</strong>
+<p>
+   - Provide 24/7 access to career counseling services
+   - Eliminate geographical and financial barriers to professional guidance
+   - Create a user-friendly interface accessible from any device
+</p>
+
+<strong>2. Personalized Guidance</strong>
+<p>
+   - Deliver context-aware career advice based on conversation history
+   - Maintain continuity across multiple counseling sessions
+   - Adapt responses to individual user circumstances and goals
+</p>
+
+<strong>3. Comprehensive Career Support</strong>
+<p>
+   - Cover all aspects of career development and professional growth
+   - Provide actionable, practical advice for immediate implementation
+   - Support users at all career stages from entry-level to executive
+</p>
+
+<strong>4. Technology Integration</strong>
+<p>
+   - Implement cutting-edge AI technology for natural conversations
+   - Ensure type-safe, scalable architecture for reliability
+   - Create responsive, modern user experience with dark/light themes
+</p>
+
+<strong>5. Data Privacy and Security</strong>
+<p>
+   - Protect user conversations with secure authentication
+   - Implement role-based access control
+   - Ensure data encryption and secure storage
+</p>
+
+<strong>6. Session Management</strong>
+<p>
+   - Enable users to organize conversations by topic or purpose
+   - Provide intuitive session creation, renaming, and deletion
+   - Support pagination for efficient browsing of conversation history
+</p>
+
+<strong>7. Scalability and Performance</strong>
+<p>
+   - Design serverless architecture for automatic scaling
+   - Optimize database queries for fast response times
+   - Implement efficient caching strategies
+</p>
+
+<strong>8. User Experience Excellence</strong>
+<p>
+   - Create intuitive, modern interface with real-time feedback
+   - Provide visual indicators for AI processing states
+   - Support both mobile and desktop users seamlessly
+</p>
+
+<hr>
+
+<h1>2. TOOLS/PLATFORM, HARDWARE AND SOFTWARE REQUIREMENT SPECIFICATIONS</h1>
+
+<h2>2.1 Development Platform</h2>
+
+<strong>Operating System</strong>: Linux, Windows, or macOS for development
+<strong>Browser Requirements</strong>: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+<strong>Node.js Version</strong>: v18.0.0 or higher
+<strong>Package Manager</strong>: npm 9.0.0 or higher
+
+<h2>2.2 Software Requirements</h2>
+
+<h3>Frontend Technologies</h3>
+
+| Software/Library | Version | Purpose |
+|-----------------|---------|---------|
+| Next.js | 14.2.25 | React framework with SSR/SSG capabilities |
+| React | 19.0.0 | UI component library |
+| TypeScript | 5.x | Type-safe JavaScript development |
+| TanStack Query | 5.59.0 | Server state management and caching |
+| tRPC | 11.0.0 | Type-safe API layer (client-side) |
+| Tailwind CSS | 4.1.13 | Utility-first CSS framework |
+| shadcn/ui | Latest | Component library built on Radix UI |
+| Radix UI | Latest | Accessible UI primitives (17 packages) |
+| react-markdown | Latest | Markdown rendering for AI responses |
+| react-hook-form | Latest | Form management and validation |
+| Zod | 3.25.76 | Schema validation |
+| next-themes | Latest | Dark/light mode support |
+| lucide-react | Latest | Icon library |
+| sonner | Latest | Toast notifications |
+
+<h3>Backend Technologies</h3>
+
+| Software/Library | Version | Purpose |
+|-----------------|---------|---------|
+| Next.js API Routes | 14.2.25 | Backend API endpoints |
+| tRPC | 11.0.0 | Type-safe RPC framework (server-side) |
+| Prisma | 6.16.1 | Database ORM and query builder |
+| PostgreSQL | 14+ | Relational database |
+| @neondatabase/serverless | Latest | Serverless PostgreSQL connection |
+| NextAuth.js | 4.24.11 | Authentication framework |
+| superjson | Latest | Serialization for complex types |
+
+<h3>AI and Machine Learning</h3>
+
+| Software/Library | Version | Purpose |
+|-----------------|---------|---------|
+| Vercel AI SDK | 5.0.44 | AI integration framework |
+| @ai-sdk/google | 2.0.14 | Google Gemini AI provider |
+| Google Gemini 2.0 Flash | Latest | Large language model for conversations |
+
+<h3>Development Tools</h3>
+
+| Tool | Purpose |
+|------|---------|
+| Visual Studio Code | Primary code editor |
+| ESLint | Code linting and quality checks |
+| Prettier | Code formatting |
+| Git | Version control |
+| GitHub | Code repository and collaboration |
+| Prisma Studio | Database GUI for development |
+| Postman/Thunder Client | API testing |
+
+<h2>2.3 Hardware Requirements</h2>
+
+<h3>Development Environment</h3>
+
+<strong>Minimum Requirements</strong>:
+<ul>
+<li>Processor: Intel Core i5 or AMD equivalent (4 cores)</li>
+<li>RAM: 8 GB</li>
+<li>Storage: 256 GB SSD</li>
+<li>Internet: Broadband connection (10 Mbps)</li>
+</ul>
+
+<strong>Recommended Requirements</strong>:
+<ul>
+<li>Processor: Intel Core i7/i9 or AMD Ryzen 7/9 (8+ cores)</li>
+<li>RAM: 16 GB or higher</li>
+<li>Storage: 512 GB NVMe SSD</li>
+<li>Internet: High-speed broadband (50+ Mbps)</li>
+</ul>
+
+<h3>Production Deployment (Vercel Serverless)</h3>
+
+<ul>
+<li><strong>Hosting</strong>: Vercel Edge Network (automatic scaling)</li>
+<li><strong>Database</strong>: Neon PostgreSQL (serverless, auto-scaling)</li>
+<li><strong>CDN</strong>: Vercel Edge CDN for static assets</li>
+<li><strong>Region</strong>: Multi-region deployment for low latency</li>
+</ul>
+
+<h3>Client Requirements</h3>
+
+<strong>Desktop/Laptop</strong>:
+<ul>
+<li>Processor: Dual-core 1.6 GHz or higher</li>
+<li>RAM: 4 GB minimum</li>
+<li>Browser: Modern browser (Chrome, Firefox, Safari, Edge)</li>
+<li>Internet: 2 Mbps or higher</li>
+</ul>
+
+<strong>Mobile Devices</strong>:
+<ul>
+<li>Android 8.0+ or iOS 12+</li>
+<li>2 GB RAM minimum</li>
+<li>Modern mobile browser</li>
+<li>Internet: 3G/4G/5G or Wi-Fi</li>
+</ul>
+
+<h2>2.4 Cloud Services and APIs</h2>
+
+| Service | Purpose |
+|---------|---------|
+| Vercel | Application hosting and deployment |
+| Neon Database | PostgreSQL database hosting |
+| Google Cloud | Gemini AI API access |
+| Google OAuth | User authentication |
+| Vercel Analytics | Usage analytics and monitoring |
+
+<h2>2.5 Database Requirements</h2>
+
+<strong>Database Management System</strong>: PostgreSQL 14+
+<strong>Connection Type</strong>: Serverless (Neon)
+<strong>Storage</strong>: Minimum 1 GB (scales automatically)
+<strong>Backup</strong>: Automated daily backups
+<strong>Connection Pooling</strong>: Built-in with Neon serverless
+
+<hr>
+
+<h1>3. PROBLEM DEFINITION, REQUIREMENT SPECIFICATIONS, PROJECT PLANNING AND SCHEDULING</h1>
+
+<h2>3.1 Problem Definition</h2>
+
+<h3>Current Challenges in Career Counseling</h3>
+
+<strong>1. Limited Accessibility</strong>
+<ul>
+<li>Traditional career counseling requires in-person appointments</li>
+<li>Geographic constraints limit access to quality counselors</li>
+<li>Time zone differences create scheduling challenges</li>
+<li>High costs make professional counseling unaffordable for many</li>
+</ul>
+
+<strong>2. Scalability Issues</strong>
+<ul>
+<li>One counselor can only serve limited clients simultaneously</li>
+<li>Quality counseling requires significant time per session</li>
+<li>Lack of 24/7 availability for urgent career decisions</li>
+<li>Growing demand exceeds available professional counselors</li>
+</ul>
+
+<strong>3. Continuity Problems</strong>
+<ul>
+<li>Difficult to maintain consistent relationship with same counselor</li>
+<li>Previous conversation context often lost between sessions</li>
+<li>No centralized repository of career guidance history</li>
+<li>Advice becomes fragmented across multiple interactions</li>
+</ul>
+
+<strong>4. Knowledge Gaps</strong>
+<ul>
+<li>Single counselors may lack expertise across all industries</li>
+<li>Rapidly changing job market requires constant knowledge updates</li>
+<li>Difficulty providing specialized advice for niche career paths</li>
+<li>Limited awareness of global career opportunities</li>
+</ul>
+
+<h3>Proposed Solution</h3>
+
+<p>
+ASG-Oration addresses these challenges by:
+</p>
+<ul>
+<li>Providing AI-powered counseling available 24/7 globally</li>
+<li>Maintaining complete conversation history and context</li>
+<li>Leveraging vast knowledge base across all industries</li>
+<li>Offering affordable (or free) access to quality career guidance</li>
+<li>Scaling automatically to serve unlimited concurrent users</li>
+<li>Delivering consistent, unbiased professional advice</li>
+</ul>
+
+<h2>3.2 Functional Requirements</h2>
+
+<h3>FR-1: User Authentication and Authorization</h3>
+<ul>
+<li><strong>FR-1.1</strong>: Users shall register using Google OAuth</li>
+<li><strong>FR-1.2</strong>: System shall maintain secure user sessions</li>
+<li><strong>FR-1.3</strong>: Users shall only access their own chat sessions</li>
+<li><strong>FR-1.4</strong>: System shall auto-logout after session expiration</li>
+</ul>
+
+<h3>FR-2: Session Management</h3>
+<ul>
+<li><strong>FR-2.1</strong>: Users shall create new chat sessions</li>
+<li><strong>FR-2.2</strong>: System shall auto-generate session titles from first message</li>
+<li><strong>FR-2.3</strong>: Users shall rename sessions for better organization</li>
+<li><strong>FR-2.4</strong>: Users shall delete unwanted sessions</li>
+<li><strong>FR-2.5</strong>: System shall display sessions with pagination</li>
+<li><strong>FR-2.6</strong>: System shall maintain draft sessions before first message</li>
+</ul>
+
+<h3>FR-3: Chat Functionality</h3>
+<ul>
+<li><strong>FR-3.1</strong>: Users shall send text messages to AI counselor</li>
+<li><strong>FR-3.2</strong>: System shall maintain conversation context</li>
+<li><strong>FR-3.3</strong>: AI shall generate relevant career counseling responses</li>
+<li><strong>FR-3.4</strong>: System shall display conversation history chronologically</li>
+<li><strong>FR-3.5</strong>: System shall auto-scroll to latest messages</li>
+<li><strong>FR-3.6</strong>: System shall show typing indicators</li>
+</ul>
+
+<h3>FR-4: User Interface</h3>
+<ul>
+<li><strong>FR-4.1</strong>: System shall provide responsive design for all devices</li>
+<li><strong>FR-4.2</strong>: Users shall toggle between dark and light themes</li>
+<li><strong>FR-4.3</strong>: System shall display AI thinking phases (thinking, processing, responding)</li>
+<li><strong>FR-4.4</strong>: System shall render Markdown in AI responses</li>
+<li><strong>FR-4.5</strong>: System shall show toast notifications for actions</li>
+</ul>
+
+<h3>FR-5: Data Persistence</h3>
+<ul>
+<li><strong>FR-5.1</strong>: System shall persist all messages to database</li>
+<li><strong>FR-5.2</strong>: System shall maintain user session data</li>
+<li><strong>FR-5.3</strong>: System shall store session metadata (title, timestamps)</li>
+<li><strong>FR-5.4</strong>: System shall ensure data integrity across operations</li>
+</ul>
+
+<h2>3.3 Non-Functional Requirements</h2>
+
+<h3>NFR-1: Performance</h3>
+<ul>
+<li><strong>NFR-1.1</strong>: Page load time shall be under 2 seconds</li>
+<li><strong>NFR-1.2</strong>: AI response generation shall start within 1 second</li>
+<li><strong>NFR-1.3</strong>: Database queries shall execute in under 500ms</li>
+<li><strong>NFR-1.4</strong>: System shall support 1000+ concurrent users</li>
+</ul>
+
+<h3>NFR-2: Scalability</h3>
+<ul>
+<li><strong>NFR-2.1</strong>: System shall scale automatically based on load</li>
+<li><strong>NFR-2.2</strong>: Database shall handle 10,000+ sessions</li>
+<li><strong>NFR-2.3</strong>: Architecture shall support horizontal scaling</li>
+</ul>
+
+<h3>NFR-3: Security</h3>
+<ul>
+<li><strong>NFR-3.1</strong>: All data transmission shall use HTTPS</li>
+<li><strong>NFR-3.2</strong>: Passwords shall never be stored in plain text</li>
+<li><strong>NFR-3.3</strong>: API endpoints shall validate all inputs</li>
+<li><strong>NFR-3.4</strong>: Session tokens shall expire after 30 days</li>
+</ul>
+
+<h3>NFR-4: Reliability</h3>
+<ul>
+<li><strong>NFR-4.1</strong>: System uptime shall be 99.9%</li>
+<li><strong>NFR-4.2</strong>: Database shall have automated backups</li>
+<li><strong>NFR-4.3</strong>: System shall gracefully handle errors</li>
+</ul>
+
+<h3>NFR-5: Usability</h3>
+<ul>
+<li><strong>NFR-5.1</strong>: Interface shall be intuitive without training</li>
+<li><strong>NFR-5.2</strong>: System shall provide clear error messages</li>
+<li><strong>NFR-5.3</strong>: Application shall be accessible (WCAG 2.1 AA)</li>
+</ul>
+
+<h3>NFR-6: Maintainability</h3>
+<ul>
+<li><strong>NFR-6.1</strong>: Code shall follow TypeScript best practices</li>
+<li><strong>NFR-6.2</strong>: System shall have comprehensive type safety</li>
+<li><strong>NFR-6.3</strong>: Architecture shall support modular updates</li>
+</ul>
+
+<h2>3.4 Technical Specifications</h2>
+
+<h3>System Architecture</h3>
+<ul>
+<li><strong>Architecture Pattern</strong>: Client-Server with Serverless Backend</li>
+<li><strong>API Design</strong>: tRPC (Remote Procedure Call)</li>
+<li><strong>State Management</strong>: TanStack Query + React Hooks</li>
+<li><strong>Rendering</strong>: Server-Side Rendering (SSR) + Static Generation (SSG)</li>
+<li><strong>Database Access</strong>: Prisma ORM with connection pooling</li>
+</ul>
+
+<h3>API Endpoints (tRPC Procedures)</h3>
+
+| Endpoint | Type | Input | Output | Purpose |
+|----------|------|-------|--------|---------|
+| getSessions | Query | userId | ChatSession[] | Fetch all user sessions |
+| getSessionsPaginated | Query | userId, page, limit | Paginated sessions | Fetch sessions with pagination |
+| createSession | Mutation | userId, title | ChatSession | Create new session |
+| getMessages | Query | sessionId | ChatMessage[] | Get messages for session |
+| updateTitle | Mutation | sessionId, title | ChatSession | Rename session |
+| deleteSession | Mutation | sessionId | Success boolean | Delete session and messages |
+| sendMessage | Mutation | sessionId, content | ChatMessage + AI response | Send message and get AI reply |
+
+<h3>Database Schema Relationships</h3>
+<ul>
+<li>User → ChatSession (One-to-Many)</li>
+<li>ChatSession → ChatMessage (One-to-Many)</li>
+<li>User → UserSession (One-to-Many, for NextAuth)</li>
+</ul>
+
+<h2>3.5 Project Planning and Scheduling</h2>
+
+<h3>Gantt Chart</h3>
+
+<pre><code>
+<p>
+Project Timeline: 12 Weeks
+</p>
+
+<p>
+Week 1-2: Planning & Design
+├── Requirement Analysis          [========]
+├── Database Design               [========]
+└── UI/UX Mockups                 [========]
+</p>
+
+<p>
+Week 3-4: Backend Development
+├── Database Setup (Prisma)            [========]
+├── tRPC Router Implementation         [========]
+├── Database Query Functions           [========]
+└── NextAuth Integration               [========]
+</p>
+
+<p>
+Week 5-6: Frontend Core
+├── Next.js App Setup                       [========]
+├── UI Components (shadcn/ui)               [========]
+├── Chat Interface                          [========]
+└── Sidebar Component                       [========]
+</p>
+
+<p>
+Week 7-8: AI Integration
+├── Vercel AI SDK Setup                          [========]
+├── Gemini AI Integration                        [========]
+├── Message Handling Logic                       [========]
+└── Conversation Context Management              [========]
+</p>
+
+<p>
+Week 9-10: Advanced Features
+├── Session Management (CRUD)                         [========]
+├── Pagination Implementation                         [========]
+├── Theme Toggle (Dark/Light)                         [========]
+├── Toast Notifications                               [========]
+└── Responsive Design                                 [========]
+</p>
+
+<p>
+Week 11: Testing & Bug Fixes
+├── Unit Testing                                           [========]
+├── Integration Testing                                    [========]
+├── User Acceptance Testing                                [========]
+└── Bug Fixes                                              [========]
+</p>
+
+<p>
+Week 12: Deployment
+├── Vercel Deployment Setup                                     [========]
+├── Environment Configuration                                   [========]
+├── Performance Optimization                                    [========]
+└── Documentation                                               [========]
+</p>
+</code></pre>
+
+<h3>PERT Chart Analysis</h3>
+
+<strong>Critical Path Activities</strong>:
+<p>
+1. Database Design → Database Setup → tRPC Implementation → AI Integration → Testing → Deployment
+</p>
+
+<strong>Activity Network</strong>:
+
+<pre><code>
+<p>
+[Start]
+   ↓
+[A: Requirement Analysis] (5 days)
+   ↓
+[B: Database Design] (7 days)
+   ↓
+[C: Database Implementation] (7 days)
+   ├→ [D: Backend API Development] (10 days)
+   └→ [E: UI Component Setup] (10 days)
+       ↓
+   [F: Chat Interface Development] (7 days)
+       ↓
+   [G: AI Integration] (10 days)
+       ↓
+   [H: Session Management] (7 days)
+       ↓
+   [I: Advanced Features] (10 days)
+       ↓
+   [J: Testing] (10 days)
+       ↓
+   [K: Deployment] (5 days)
+       ↓
+   [End]
+</p>
+</code></pre>
+
+<strong>Estimated Completion Time</strong>: 78 working days (12 weeks)
+
+<strong>Critical Path</strong>: A → B → C → D → G → H → I → J → K (Total: 68 days)
+
+<strong>Slack Time Activities</strong>:
+<ul>
+<li>UI Component Setup (E): 3 days slack</li>
+<li>Early documentation: Can be done in parallel</li>
+</ul>
+
+<hr>
+
+<h1>4. ANALYSIS - DATA MODELS, DFD, ER DIAGRAMS, CLASS DIAGRAMS</h1>
+
+<h2>4.1 Data Flow Diagrams</h2>
+
+<h3>Level 0 DFD (Context Diagram)</h3>
+
+<pre><code>
+<p>
+                    ┌─────────────────────────┐
+                    │                         │
+                    │        USER             │
+                    │                         │
+                    └───────────┬─────────────┘
+                                │
+                    Login, Messages, Session Commands
+                                │
+                                ↓
+                    ┌─────────────────────────┐
+                    │                         │
+                    │   ASG-ORATION          │
+                    │   Career Counseling     │
+                    │   Platform              │
+                    │                         │
+                    └───────────┬─────────────┘
+                                │
+                    AI Responses, Session Data, Authentication Status
+                                │
+                                ↓
+                    ┌─────────────────────────┐
+                    │                         │
+                    │        USER             │
+                    │                         │
+                    └─────────────────────────┘
+</p>
+</code></pre>
+
+<h3>Level 1 DFD (Major Processes)</h3>
+
+<pre><code>
+<p>
+┌──────────┐
+│   User   │
+└─────┬────┘
+      │ Login Credentials
+      ↓
+┌─────────────────┐     Auth Token    ┌─────────────────┐
+│  1.0            │ ────────────────→  │  User Session   │
+│  Authenticate   │                    │  Store          │
+│  User           │                    │  (D1)           │
+└────────┬────────┘                    └─────────────────┘
+         │ Authenticated
+         ↓
+┌─────────────────┐     Session Req   ┌─────────────────┐
+│  2.0            │ ────────────────→  │  Chat Sessions  │
+│  Manage         │ ←──────────────── │  Database       │
+│  Sessions       │     Session Data   │  (D2)           │
+└────────┬────────┘                    └─────────────────┘
+         │ Selected Session
+         ↓
+┌─────────────────┐     User Message  ┌─────────────────┐
+│  3.0            │ ────────────────→  │  Chat Messages  │
+│  Handle Chat    │ ←──────────────── │  Database       │
+│  Conversation   │   Message History  │  (D3)           │
+└────────┬────────┘                    └─────────────────┘
+         │ User Message
+         ↓
+┌─────────────────┐     API Request   ┌─────────────────┐
+│  4.0            │ ────────────────→  │  Google Gemini  │
+│  Generate AI    │ ←──────────────── │  AI Service     │
+│  Response       │   AI Response      │  (External)     │
+└────────┬────────┘                    └─────────────────┘
+         │ AI + User Messages
+         ↓
+┌─────────────────┐
+│  5.0            │
+│  Display        │
+│  Conversation   │
+└────────┬────────┘
+         │ Rendered Chat
+         ↓
+    ┌────────┐
+    │  User  │
+    └────────┘
+</p>
+</code></pre>
+
+<h3>Level 2 DFD (Session Management Process)</h3>
+
+<pre><code>
+<p>
+Process 2.0: Manage Sessions (Detailed)
+</p>
+
+<p>
+┌──────────┐
+│   User   │
+└─────┬────┘
+      │ Create Session Request
+      ↓
+┌─────────────────┐     Draft Session     ┌─────────────────┐
+│  2.1            │ ────────────────────→  │  Local State    │
+│  Create New     │                        │  Storage        │
+│  Session        │                        │  (D4)           │
+└────────┬────────┘                        └─────────────────┘
+         │ First Message Sent
+         ↓
+┌─────────────────┐     Session Record    ┌─────────────────┐
+│  2.2            │ ────────────────────→  │  Chat Sessions  │
+│  Persist        │                        │  Database (D2)  │
+│  Session        │                        └─────────────────┘
+└────────┬────────┘
+         │ Session ID
+         ↓
+┌─────────────────┐     Auto-generated    ┌─────────────────┐
+│  2.3            │     Title              │  Chat Sessions  │
+│  Generate       │ ────────────────────→  │  Database (D2)  │
+│  Title          │                        └─────────────────┘
+└─────────────────┘
+</p>
+
+<p>
+         ┌──────────┐
+         │   User   │
+         └─────┬────┘
+               │ Rename Request
+               ↓
+┌─────────────────┐     Update Title      ┌─────────────────┐
+│  2.4            │ ────────────────────→  │  Chat Sessions  │
+│  Update         │                        │  Database (D2)  │
+│  Session Title  │                        └─────────────────┘
+└─────────────────┘
+</p>
+
+<p>
+         ┌──────────┐
+         │   User   │
+         └─────┬────┘
+               │ Delete Request
+               ↓
+┌─────────────────┐     Delete Session    ┌─────────────────┐
+│  2.5            │ ────────────────────→  │  Chat Sessions  │
+│  Delete         │     & Messages         │  & Messages DB  │
+│  Session        │                        │  (D2, D3)       │
+└─────────────────┘                        └─────────────────┘
+</p>
+
+<p>
+         ┌──────────┐
+         │   User   │
+         └─────┬────┘
+               │ Pagination Request
+               ↓
+┌─────────────────┐     Query Sessions    ┌─────────────────┐
+│  2.6            │ ────────────────────→  │  Chat Sessions  │
+│  Fetch          │ ←──────────────────   │  Database (D2)  │
+│  Paginated      │    Paginated Result    └─────────────────┘
+│  Sessions       │
+└─────────────────┘
+</p>
+</code></pre>
+
+<h2>4.2 Entity-Relationship Diagram</h2>
+
+<pre><code>
+<p>
+┌─────────────────────────────────────────────┐
+│               USER                          │
+├─────────────────────────────────────────────┤
+│ PK: id (UUID)                               │
+│     email (VARCHAR, UNIQUE)                 │
+│     passwordHash (VARCHAR, NULLABLE)        │
+│     displayName (VARCHAR, NULLABLE)         │
+│     createdAt (TIMESTAMP)                   │
+│     updatedAt (TIMESTAMP)                   │
+└──────────────────┬──────────────────────────┘
+                   │
+                   │ 1
+                   │
+                   │ Has
+                   │
+                   │ N
+                   ↓
+┌─────────────────────────────────────────────┐
+│            CHAT_SESSION                     │
+├─────────────────────────────────────────────┤
+│ PK: id (UUID)                               │
+│ FK: userId (UUID) → USER.id                 │
+│     title (VARCHAR)                         │
+│     createdAt (TIMESTAMP)                   │
+│     updatedAt (TIMESTAMP)                   │
+└──────────────────┬──────────────────────────┘
+                   │
+                   │ 1
+                   │
+                   │ Contains
+                   │
+                   │ N
+                   ↓
+┌─────────────────────────────────────────────┐
+│           CHAT_MESSAGE                      │
+├─────────────────────────────────────────────┤
+│ PK: id (UUID)                               │
+│ FK: sessionId (UUID) → CHAT_SESSION.id      │
+│     role (ENUM: 'user', 'assistant')        │
+│     content (TEXT)                          │
+│     createdAt (TIMESTAMP)                   │
+└─────────────────────────────────────────────┘
+</p>
+
+<p>
+┌─────────────────────────────────────────────┐
+│            USER_SESSION                     │
+│         (NextAuth Sessions)                 │
+├─────────────────────────────────────────────┤
+│ PK: id (SERIAL)                             │
+│ FK: userId (UUID) → USER.id                 │
+│     sessionToken (VARCHAR, UNIQUE)          │
+│     expiresAt (TIMESTAMP)                   │
+│     createdAt (TIMESTAMP)                   │
+└──────────────────┬──────────────────────────┘
+                   │
+                   │ N
+                   │
+                   │ Belongs to
+                   │
+                   │ 1
+                   ↓
+┌─────────────────────────────────────────────┐
+│               USER                          │
+│         (Already shown above)               │
+└─────────────────────────────────────────────┘
+</p>
+</code></pre>
+
+<strong>Cardinality Relationships</strong>:
+<ul>
+<li><strong>User ↔ ChatSession</strong>: One-to-Many (1:N)</li>
+</ul>
+<p>
+  - One user can have multiple chat sessions
+  - Each chat session belongs to exactly one user
+</p>
+
+<ul>
+<li><strong>ChatSession ↔ ChatMessage</strong>: One-to-Many (1:N)</li>
+</ul>
+<p>
+  - One chat session contains multiple messages
+  - Each message belongs to exactly one session
+</p>
+
+<ul>
+<li><strong>User ↔ UserSession</strong>: One-to-Many (1:N)</li>
+</ul>
+<p>
+  - One user can have multiple active sessions (different devices)
+  - Each session belongs to exactly one user
+</p>
+
+<h2>4.3 Class Diagram</h2>
+
+<pre><code>
+<p>
+┌─────────────────────────────────────────────────────┐
+│                    User                             │
+├─────────────────────────────────────────────────────┤
+│ - id: string                                        │
+│ - email: string                                     │
+│ - passwordHash: string | null                       │
+│ - displayName: string | null                        │
+│ - createdAt: Date                                   │
+│ - updatedAt: Date                                   │
+├─────────────────────────────────────────────────────┤
+│ + getChatSessions(): ChatSession[]                  │
+│ + createChatSession(title: string): ChatSession     │
+│ + deleteChatSession(sessionId: string): boolean     │
+│ + authenticate(email: string): User | null          │
+└────────────────────┬────────────────────────────────┘
+                     │
+                     │ 1      Has      *
+                     ↓
+┌─────────────────────────────────────────────────────┐
+│                 ChatSession                         │
+├─────────────────────────────────────────────────────┤
+│ - id: string                                        │
+│ - userId: string                                    │
+│ - title: string                                     │
+│ - createdAt: Date                                   │
+│ - updatedAt: Date                                   │
+├─────────────────────────────────────────────────────┤
+│ + getMessages(): ChatMessage[]                      │
+│ + addMessage(role: string, content: string): void   │
+│ + updateTitle(newTitle: string): void               │
+│ + deleteAllMessages(): void                         │
+│ + generateAutoTitle(firstMessage: string): string   │
+└────────────────────┬────────────────────────────────┘
+                     │
+                     │ 1    Contains    *
+                     ↓
+┌─────────────────────────────────────────────────────┐
+│                ChatMessage                          │
+├─────────────────────────────────────────────────────┤
+│ - id: string                                        │
+│ - sessionId: string                                 │
+│ - role: 'user' | 'assistant'                        │
+│ - content: string                                   │
+│ - createdAt: Date                                   │
+├─────────────────────────────────────────────────────┤
+│ + getSession(): ChatSession                         │
+│ + isFromUser(): boolean                             │
+│ + isFromAssistant(): boolean                        │
+│ + getFormattedContent(): string                     │
+└─────────────────────────────────────────────────────┘
+</p>
+
+<p>
+┌─────────────────────────────────────────────────────┐
+│                 tRPCRouter                          │
+├─────────────────────────────────────────────────────┤
+│ - prisma: PrismaClient                              │
+├─────────────────────────────────────────────────────┤
+│ + getSessions(userId: string): ChatSession[]        │
+│ + getSessionsPaginated(params): PaginatedSessions   │
+│ + createSession(userId, title): ChatSession         │
+│ + getMessages(sessionId): ChatMessage[]             │
+│ + updateTitle(sessionId, title): ChatSession        │
+│ + deleteSession(sessionId): boolean                 │
+│ + sendMessage(sessionId, content): ChatMessage      │
+└─────────────────────────────────────────────────────┘
+</p>
+
+<p>
+┌─────────────────────────────────────────────────────┐
+│                 AIService                           │
+├─────────────────────────────────────────────────────┤
+│ - model: GoogleGenerativeAI                         │
+│ - systemPrompt: string                              │
+├─────────────────────────────────────────────────────┤
+│ + generateResponse(messages[]): Promise<string>     │
+│ + buildConversationContext(messages[]): Context     │
+│ + streamResponse(messages[]): AsyncGenerator        │
+└─────────────────────────────────────────────────────┘
+</p>
+
+<p>
+┌─────────────────────────────────────────────────────┐
+│              ChatInterfaceComponent                 │
+├─────────────────────────────────────────────────────┤
+│ - currentSession: ChatSession | null                │
+│ - messages: ChatMessage[]                           │
+│ - inputValue: string                                │
+│ - isLoading: boolean                                │
+├─────────────────────────────────────────────────────┤
+│ + handleSendMessage(): void                         │
+│ + handleInputChange(value: string): void            │
+│ + scrollToBottom(): void                            │
+│ + renderMessage(message: ChatMessage): JSX.Element  │
+└─────────────────────────────────────────────────────┘
+</p>
+
+<p>
+┌─────────────────────────────────────────────────────┐
+│              ChatSidebarComponent                   │
+├─────────────────────────────────────────────────────┤
+│ - sessions: ChatSession[]                           │
+│ - currentPage: number                               │
+│ - totalPages: number                                │
+├─────────────────────────────────────────────────────┤
+│ + handleCreateSession(): void                       │
+│ + handleSelectSession(id: string): void             │
+│ + handleRenameSession(id: string, title: string)    │
+│ + handleDeleteSession(id: string): void             │
+│ + handlePageChange(page: number): void              │
+│ + renderSessionList(): JSX.Element                  │
+└─────────────────────────────────────────────────────┘
+</p>
+
+<p>
+┌─────────────────────────────────────────────────────┐
+│                  useChatHook                        │
+├─────────────────────────────────────────────────────┤
+│ - currentSessionId: string | null                   │
+│ - messages: ChatMessage[]                           │
+│ - draftSessions: Map<string, DraftSession>          │
+├─────────────────────────────────────────────────────┤
+│ + createSession(): void                             │
+│ + selectSession(id: string): void                   │
+│ + sendMessage(content: string): Promise<void>       │
+│ + updateSessionTitle(id: string, title: string)     │
+│ + deleteSession(id: string): void                   │
+│ + syncWithUrlParams(): void                         │
+└─────────────────────────────────────────────────────┘
+</p>
+</code></pre>
+
+<hr>
+
+<h1>5. COMPLETE STRUCTURE WITH MODULES AND PROCESS LOGIC</h1>
+
+<h2>5.1 Module Overview</h2>
+
+<p>
+The ASG-Oration platform consists of <strong>8 major modules</strong>:
+</p>
+
+| Module # | Module Name | Description | Lines of Code |
+|----------|-------------|-------------|---------------|
+| M1 | Authentication Module | User login/logout with Google OAuth | ~150 LOC |
+| M2 | Session Management Module | Create, read, update, delete chat sessions | ~350 LOC |
+| M3 | Chat Interface Module | Display messages and handle user input | ~410 LOC |
+| M4 | AI Integration Module | Generate AI responses using Gemini | ~200 LOC |
+| M5 | Database Operations Module | Prisma queries and data persistence | ~230 LOC |
+| M6 | API Layer Module (tRPC) | Type-safe API endpoints | ~180 LOC |
+| M7 | UI Components Module | Reusable UI elements (sidebar, buttons, etc.) | ~500 LOC |
+| M8 | State Management Module | Custom hooks for application state | ~250 LOC |
+
+<strong>Total Estimated Effort</strong>: ~2,270 lines of TypeScript code
+
+<h2>5.2 Detailed Module Descriptions</h2>
+
+<h3>Module M1: Authentication Module</h3>
+
+<strong>Purpose</strong>: Handles user authentication using NextAuth.js with Google OAuth provider
+
+<strong>Key Components</strong>:
+<ul>
+<li><code>/app/api/auth/[...nextauth]/route.ts</code> - NextAuth configuration</li>
+<li>Session provider wrapper component</li>
+<li>Protected route middleware</li>
+</ul>
+
+<strong>Process Logic</strong>:
+<pre><code>
+<p>
+1. START
+2. User clicks "Sign in with Google"
+3. Redirect to Google OAuth consent screen
+4. User approves permissions
+5. Google returns authorization code
+6. NextAuth exchanges code for access token
+7. Fetch user profile from Google
+8. Check if user exists in database
+9. IF user does not exist:
+     Create new user record in database
+10. Generate session token (JWT)
+11. Store session in database (UserSession table)
+12. Set session cookie in browser
+13. Redirect to application homepage
+14. END
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface AuthSession {
+  user: {
+    id: string;
+    email: string;
+    name: string | null;
+    image: string | null;
+  };
+  expires: string;
+}
+</p>
+
+<p>
+interface GoogleOAuthProfile {
+  sub: string;
+  email: string;
+  name: string;
+  picture: string;
+}
+</p>
+</code></pre>
+
+<h3>Module M2: Session Management Module</h3>
+
+<strong>Purpose</strong>: Manages chat session lifecycle (create, list, rename, delete)
+
+<strong>Key Components</strong>:
+<ul>
+<li><code>chatSessionQueries</code> in <code>/lib/db.ts</code></li>
+<li>tRPC procedures: <code>createSession</code>, <code>getSessions</code>, <code>updateTitle</code>, <code>deleteSession</code></li>
+<li>Sidebar component for session list</li>
+</ul>
+
+<strong>Process Logic</strong>:
+
+<strong>Create Session</strong>:
+<pre><code>
+<p>
+1. START
+2. User clicks "New Chat" button
+3. Generate temporary draft session ID (UUID)
+4. Store draft session in local state
+5. Display empty chat interface
+6. Wait for user's first message
+7. IF user sends first message:
+     a. Extract first 4 words for auto-title
+     b. Call createSession tRPC mutation
+     c. Insert session record in database
+     d. Get generated session ID
+     e. Replace draft ID with real ID
+     f. Remove from draft sessions
+8. END
+</p>
+</code></pre>
+
+<strong>Rename Session</strong>:
+<pre><code>
+<p>
+1. START
+2. User clicks edit icon on session
+3. Display inline text input
+4. User types new title
+5. User presses Enter or clicks away
+6. Call updateTitle tRPC mutation
+7. Validate title length (1-100 chars)
+8. Update session.title in database
+9. Invalidate TanStack Query cache
+10. Refetch sessions list
+11. Show success toast
+12. END
+</p>
+</code></pre>
+
+<strong>Delete Session</strong>:
+<pre><code>
+<p>
+1. START
+2. User opens session dropdown menu
+3. User clicks "Delete" option
+4. Show confirmation dialog
+5. IF user confirms:
+     a. Call deleteSession tRPC mutation
+     b. Delete all messages (CASCADE)
+     c. Delete session record
+     d. IF deleted session is current session:
+          - Clear current session state
+          - Redirect to home
+     e. Invalidate TanStack Query cache
+     f. Refetch sessions list
+     g. Show success toast
+6. END
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface ChatSession {
+  id: string;
+  userId: string;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  messages?: ChatMessage[];
+}
+</p>
+
+<p>
+interface DraftSession {
+  id: string;
+  title: string;
+  createdAt: Date;
+  isDraft: true;
+}
+</p>
+
+<p>
+interface PaginatedSessions {
+  sessions: ChatSession[];
+  totalPages: number;
+  currentPage: number;
+  totalSessions: number;
+}
+</p>
+</code></pre>
+
+<h3>Module M3: Chat Interface Module</h3>
+
+<strong>Purpose</strong>: Renders conversation UI and handles user message input
+
+<strong>Key File</strong>: <code>/components/chat/chat-interface.tsx</code> (412 LOC)
+
+<strong>Process Logic</strong>:
+
+<strong>Display Messages</strong>:
+<pre><code>
+<p>
+1. START
+2. Fetch messages for current session
+3. Sort messages by createdAt (ascending)
+4. FOR EACH message:
+     a. Determine message role (user or assistant)
+     b. IF role is 'user':
+          - Render user avatar (left side)
+          - Display message in user bubble
+     c. ELSE IF role is 'assistant':
+          - Render AI avatar (right side)
+          - Parse content as Markdown
+          - Render formatted message
+5. Scroll to bottom of conversation
+6. END
+</p>
+</code></pre>
+
+<strong>Send Message</strong>:
+<pre><code>
+<p>
+1. START
+2. User types message in input field
+3. User presses Enter or clicks Send button
+4. Validate input is not empty
+5. Get current session ID
+6. IF session is draft:
+     a. Create persistent session first
+     b. Wait for session ID
+7. Create optimistic message (temporary)
+8. Add optimistic message to UI immediately
+9. Call sendMessage tRPC mutation
+10. Send message content + session ID to backend
+11. Backend saves user message to database
+12. Backend calls AI service with conversation history
+13. AI generates response
+14. Backend saves AI message to database
+15. Backend returns both messages
+16. Replace optimistic message with real message
+17. Add AI response to UI
+18. Clear input field
+19. Scroll to bottom
+20. Show error toast IF mutation fails
+21. END
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface ChatMessage {
+  id: string;
+  sessionId: string;
+  role: 'user' | 'assistant';
+  content: string;
+  createdAt: Date;
+  isOptimistic?: boolean; // For temporary messages
+}
+</p>
+
+<p>
+interface ChatInterfaceProps {
+  sessionId: string | null;
+}
+</p>
+
+<p>
+interface MessageBubbleProps {
+  message: ChatMessage;
+  isUser: boolean;
+}
+</p>
+</code></pre>
+
+<h3>Module M4: AI Integration Module</h3>
+
+<strong>Purpose</strong>: Generates AI responses using Google Gemini 2.0 Flash model
+
+<strong>Key File</strong>: <code>/lib/trpc/server.ts</code> (sendMessage procedure)
+
+<strong>Process Logic</strong>:
+<pre><code>
+<p>
+1. START
+2. Receive user message and session ID
+3. Fetch all previous messages in session
+4. Build conversation context array:
+     [{role: 'user', content: '...'}, {role: 'assistant', content: '...'}]
+5. Add system prompt (career counselor instructions)
+6. Initialize Google Gemini AI model
+7. Configure model parameters:
+     - Model: gemini-2.0-flash-latest
+     - Temperature: 0.7 (balanced creativity)
+     - Max tokens: 2048
+8. Send conversation context to AI API
+9. Wait for AI response (streaming)
+10. Collect complete response text
+11. Save AI message to database
+12. Return AI message object
+13. CATCH errors:
+      - Log error details
+      - Return generic error message
+14. END
+</p>
+</code></pre>
+
+<strong>AI System Prompt</strong>:
+<pre><code>
+<p>
+You are an expert career counselor with extensive experience in:
+</p>
+<ul>
+<li>Career transitions and planning</li>
+<li>Resume optimization and personal branding</li>
+<li>Interview preparation and techniques</li>
+<li>Salary negotiation strategies</li>
+<li>Professional skill development</li>
+<li>Industry-specific career guidance</li>
+<li>Work-life balance and job satisfaction</li>
+</ul>
+
+<p>
+Provide thoughtful, actionable advice tailored to the user's situation.
+Be encouraging but realistic. Ask clarifying questions when needed.
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface AIMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
+</p>
+
+<p>
+interface AIModelConfig {
+  model: string;
+  temperature: number;
+  maxTokens: number;
+  apiKey: string;
+}
+</p>
+
+<p>
+interface AIResponse {
+  text: string;
+  tokensUsed: number;
+  finishReason: string;
+}
+</p>
+</code></pre>
+
+<h3>Module M5: Database Operations Module</h3>
+
+<strong>Purpose</strong>: Provides reusable database query functions using Prisma ORM
+
+<strong>Key File</strong>: <code>/lib/db.ts</code> (227 LOC)
+
+<strong>Process Logic Examples</strong>:
+
+<strong>Create Chat Session</strong>:
+<pre><code>sql
+<p>
+INSERT INTO ChatSession (id, userId, title, createdAt, updatedAt)
+VALUES (gen_random_uuid(), $userId, $title, NOW(), NOW())
+RETURNING *;
+</p>
+</code></pre>
+
+<strong>Get Paginated Sessions</strong>:
+<pre><code>sql
+<p>
+SELECT id, userId, title, createdAt, updatedAt
+FROM ChatSession
+WHERE userId = $userId
+ORDER BY updatedAt DESC
+LIMIT $limit OFFSET $offset;
+</p>
+
+<p>
+SELECT COUNT(*) FROM ChatSession WHERE userId = $userId;
+</p>
+</code></pre>
+
+<strong>Delete Session with Messages</strong>:
+<pre><code>sql
+<p>
+-- Cascade delete messages first
+DELETE FROM ChatMessage WHERE sessionId = $sessionId;
+</p>
+
+<p>
+-- Then delete session
+DELETE FROM ChatSession WHERE id = $sessionId;
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface DatabaseQueries {
+  chatSessionQueries: {
+    create: (userId: string, title: string) => Promise<ChatSession>;
+    getAll: (userId: string) => Promise<ChatSession[]>;
+    getById: (id: string) => Promise<ChatSession | null>;
+    updateTitle: (id: string, title: string) => Promise<ChatSession>;
+    delete: (id: string) => Promise<boolean>;
+    getPaginated: (userId: string, page: number, limit: number) => Promise<PaginatedResult>;
+  };
+  messageQueries: {
+    create: (sessionId: string, role: string, content: string) => Promise<ChatMessage>;
+    getBySessionId: (sessionId: string) => Promise<ChatMessage[]>;
+  };
+}
+</p>
+</code></pre>
+
+<h3>Module M6: API Layer Module (tRPC)</h3>
+
+<strong>Purpose</strong>: Type-safe API endpoints with automatic TypeScript inference
+
+<strong>Key File</strong>: <code>/lib/trpc/server.ts</code>
+
+<strong>Process Logic</strong> (Generic tRPC Request Flow):
+<pre><code>
+<p>
+1. START
+2. Client calls tRPC procedure (e.g., getSessions)
+3. tRPC client serializes input with superjson
+4. Send POST request to /api/trpc/[procedure]
+5. Server deserializes input
+6. Validate input against Zod schema
+7. IF validation fails:
+     - Return 400 Bad Request error
+     - Client shows error toast
+8. Execute procedure handler function
+9. Access Prisma client from context
+10. Perform database operations
+11. Serialize output with superjson
+12. Return response to client
+13. Client deserializes response
+14. TypeScript types automatically inferred
+15. Update React Query cache
+16. Re-render components with new data
+17. END
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface tRPCContext {
+  prisma: PrismaClient;
+  session: Session | null;
+}
+</p>
+
+<p>
+interface tRPCRouter {
+  getSessions: (input: { userId: string }) => ChatSession[];
+  createSession: (input: { userId: string; title: string }) => ChatSession;
+  sendMessage: (input: { sessionId: string; content: string }) => ChatMessage;
+  // ... other procedures
+}
+</p>
+</code></pre>
+
+<h3>Module M7: UI Components Module</h3>
+
+<strong>Purpose</strong>: Reusable, accessible UI components from shadcn/ui
+
+<strong>Key Components</strong>:
+<ul>
+<li>Button, Input, Textarea</li>
+<li>Dialog, DropdownMenu, Popover</li>
+<li>Avatar, Badge, Card</li>
+<li>ScrollArea, Separator, Tooltip</li>
+<li>Toast notifications (sonner)</li>
+</ul>
+
+<strong>Process Logic</strong> (Example: Toast Notification):
+<pre><code>
+<p>
+1. User performs action (e.g., delete session)
+2. Action completes successfully
+3. Call toast() function
+4. Specify toast type (success, error, info)
+5. Provide message text
+6. Toast appears at top-right corner
+7. Auto-dismiss after 3 seconds
+8. User can dismiss manually
+</p>
+</code></pre>
+
+<h3>Module M8: State Management Module</h3>
+
+<strong>Purpose</strong>: Custom React hooks for managing application state
+
+<strong>Key File</strong>: <code>/hooks/use-chat.ts</code> (251 LOC)
+
+<strong>Process Logic</strong> (useChat Hook):
+<pre><code>
+<p>
+1. START
+2. Initialize state variables:
+     - currentSessionId: string | null
+     - messages: ChatMessage[]
+     - draftSessions: Map<string, DraftSession>
+3. Set up TanStack Query hooks:
+     - useQuery for sessions
+     - useQuery for messages
+     - useMutation for sendMessage
+4. Sync currentSessionId with URL params
+5. Provide methods:
+     - createSession()
+     - selectSession(id)
+     - sendMessage(content)
+     - updateSessionTitle(id, title)
+     - deleteSession(id)
+6. Handle draft session logic
+7. Return state and methods to component
+8. END
+</p>
+</code></pre>
+
+<strong>Data Structures</strong>:
+<pre><code>typescript
+<p>
+interface UseChatReturn {
+  // State
+  currentSessionId: string | null;
+  currentSession: ChatSession | null;
+  messages: ChatMessage[];
+  isLoadingMessages: boolean;
+</p>
+
+<p>
+  // Methods
+  createSession: () => void;
+  selectSession: (id: string) => void;
+  sendMessage: (content: string) => Promise<void>;
+  updateSessionTitle: (id: string, title: string) => Promise<void>;
+  deleteSession: (id: string) => Promise<void>;
+</p>
+
+<p>
+  // Draft sessions
+  draftSessions: Map<string, DraftSession>;
+  isDraftSession: (id: string) => boolean;
+}
+</p>
+</code></pre>
+
+<h2>5.3 Reports Generated</h2>
+
+<p>
+The system generates the following analytical reports:
+</p>
+
+<h3>Report R1: User Activity Dashboard</h3>
+<ul>
+<li>Total sessions created per user</li>
+<li>Total messages sent/received</li>
+<li>Average session length (message count)</li>
+<li>Most active conversation topics (keyword analysis)</li>
+<li>Date range: Customizable</li>
+</ul>
+
+<h3>Report R2: AI Performance Metrics</h3>
+<ul>
+<li>Average AI response time</li>
+<li>Token usage statistics</li>
+<li>Response quality ratings (if implemented)</li>
+<li>Error rate and types</li>
+<li>Date range: Last 7/30/90 days</li>
+</ul>
+
+<h3>Report R3: Session Analytics</h3>
+<ul>
+<li>Most popular session times (hourly distribution)</li>
+<li>Session duration statistics</li>
+<li>Session abandonment rate</li>
+<li>Conversation completion rate</li>
+</ul>
+
+<h3>Report R4: User Engagement Report</h3>
+<ul>
+<li>Daily/Weekly/Monthly active users</li>
+<li>New user registrations</li>
+<li>User retention rate</li>
+<li>Average sessions per user</li>
+</ul>
+
+<h3>Report R5: System Health Report</h3>
+<ul>
+<li>Database query performance</li>
+<li>API response times</li>
+<li>Error logs and exception tracking</li>
+<li>Uptime percentage</li>
+</ul>
+
+<strong>Report Generation Process</strong>:
+<pre><code>
+<p>
+1. Admin accesses dashboard
+2. Selects report type and parameters
+3. System queries database with aggregation functions
+4. Process data for visualization
+5. Generate charts (using Chart.js or similar)
+6. Export options: PDF, CSV, JSON
+7. Display in browser or download
+</p>
+</code></pre>
+
+<hr>
+
+<h1>6. PROPOSED SECURITY MECHANISMS AT VARIOUS LEVELS</h1>
+
+<h2>6.1 Authentication and Authorization Security</h2>
+
+<strong>Mechanism 1: OAuth 2.0 with Google</strong>
+<ul>
+<li>Industry-standard authentication protocol</li>
+<li>Eliminates password storage vulnerabilities</li>
+<li>Users authenticate via trusted Google identity</li>
+<li>Access tokens with limited lifetime (30 days)</li>
+</ul>
+
+<strong>Mechanism 2: Session Token Encryption</strong>
+<ul>
+<li>JWT (JSON Web Tokens) signed with NEXTAUTH_SECRET</li>
+<li>Tokens stored in HTTP-only cookies (XSS protection)</li>
+<li>Secure flag ensures HTTPS-only transmission</li>
+<li>SameSite=Strict prevents CSRF attacks</li>
+</ul>
+
+<strong>Mechanism 3: Role-Based Access Control (RBAC)</strong>
+<ul>
+<li>Users can only access their own sessions and messages</li>
+<li>Database queries filter by userId</li>
+<li>API endpoints validate ownership before operations</li>
+<li>Prevents unauthorized data access</li>
+</ul>
+
+<h2>6.2 Data Security</h2>
+
+<strong>Mechanism 4: Data Encryption</strong>
+<ul>
+<li>HTTPS/TLS 1.3 for all data in transit</li>
+<li>Database connection uses SSL/TLS</li>
+<li>Environment variables stored in Vercel secure vault</li>
+<li>Sensitive data never logged or exposed</li>
+</ul>
+
+<strong>Mechanism 5: Input Validation and Sanitization</strong>
+<ul>
+<li>Zod schema validation on all API inputs</li>
+<li>SQL injection prevention via Prisma parameterized queries</li>
+<li>XSS protection through React's automatic escaping</li>
+<li>Content Security Policy (CSP) headers</li>
+</ul>
+
+<strong>Mechanism 6: Database Security</strong>
+<ul>
+<li>Neon PostgreSQL with automatic encryption at rest</li>
+<li>Connection pooling prevents resource exhaustion</li>
+<li>Automated backups with point-in-time recovery</li>
+<li>Row-level security policies (userId filtering)</li>
+</ul>
+
+<h2>6.3 Application Security</h2>
+
+<strong>Mechanism 7: API Rate Limiting</strong>
+<ul>
+<li>Vercel Edge Middleware for rate limiting</li>
+<li>Prevent brute force attacks</li>
+<li>Limit: 100 requests per minute per IP</li>
+<li>Configurable per endpoint</li>
+</ul>
+
+<strong>Mechanism 8: Error Handling</strong>
+<ul>
+<li>Generic error messages to users (no sensitive info)</li>
+<li>Detailed errors logged server-side only</li>
+<li>Stack traces never exposed to client</li>
+<li>Graceful degradation on failures</li>
+</ul>
+
+<strong>Mechanism 9: Dependency Security</strong>
+<ul>
+<li>npm audit for vulnerability scanning</li>
+<li>Automated Dependabot alerts</li>
+<li>Regular dependency updates</li>
+<li>Lock file (package-lock.json) for reproducible builds</li>
+</ul>
+
+<h2>6.4 Infrastructure Security</h2>
+
+<strong>Mechanism 10: Serverless Security</strong>
+<ul>
+<li>Vercel automatic DDoS protection</li>
+<li>Edge network distribution (attack surface reduction)</li>
+<li>Function isolation (no shared state)</li>
+<li>Automatic security patches</li>
+</ul>
+
+<strong>Mechanism 11: Environment Variable Security</strong>
+<ul>
+<li>Never commit secrets to Git (.env in .gitignore)</li>
+<li>Vercel environment variables encrypted</li>
+<li>Separate development/production environments</li>
+<li>Secrets rotation capability</li>
+</ul>
+
+<strong>Mechanism 12: CORS and Headers</strong>
+<ul>
+<li>Strict CORS policy (specific origins only)</li>
+<li>Security headers:</li>
+</ul>
+<p>
+  - X-Content-Type-Options: nosniff
+  - X-Frame-Options: DENY
+  - X-XSS-Protection: 1; mode=block
+  - Strict-Transport-Security: max-age=31536000
+</p>
+
+<h2>6.5 Compliance and Privacy</h2>
+
+<strong>Mechanism 13: Data Privacy</strong>
+<ul>
+<li>GDPR compliance considerations</li>
+<li>User data export capability</li>
+<li>Account deletion with cascade</li>
+<li>Privacy policy and terms of service</li>
+</ul>
+
+<strong>Mechanism 14: Audit Logging</strong>
+<ul>
+<li>All critical operations logged</li>
+<li>User actions timestamped</li>
+<li>IP address tracking for security events</li>
+<li>Retention policy for compliance</li>
+</ul>
+
+<hr>
+
+<h1>7. FUTURE SCOPE AND FURTHER ENHANCEMENT OF THE PROJECT</h1>
+
+<h2>7.1 Enhanced AI Capabilities</h2>
+
+<strong>1. Multi-Model AI Support</strong>
+<ul>
+<li>Integrate additional AI models (OpenAI GPT-4, Claude, Llama)</li>
+<li>Allow users to select preferred AI model</li>
+<li>Compare responses from multiple models</li>
+<li>Ensemble approach for higher quality advice</li>
+</ul>
+
+<strong>2. Personalized AI Training</strong>
+<ul>
+<li>Fine-tune AI model on user's industry/role</li>
+<li>Build user profile from conversation history</li>
+<li>Context-aware responses based on user background</li>
+<li>Remember user preferences and goals</li>
+</ul>
+
+<strong>3. Voice and Video Integration</strong>
+<ul>
+<li>Voice input for messages (speech-to-text)</li>
+<li>AI voice responses (text-to-speech)</li>
+<li>Video call simulation with AI avatar</li>
+<li>Emotion detection from voice/video</li>
+</ul>
+
+<h2>7.2 Advanced Features</h2>
+
+<strong>4. Document Analysis</strong>
+<ul>
+<li>Upload and analyze resumes</li>
+<li>AI-powered resume optimization suggestions</li>
+<li>Cover letter generation</li>
+<li>LinkedIn profile review</li>
+</ul>
+
+<strong>5. Job Market Integration</strong>
+<ul>
+<li>Real-time job posting aggregation</li>
+<li>Skill gap analysis for desired roles</li>
+<li>Salary comparison by location/industry</li>
+<li>Company culture insights</li>
+</ul>
+
+<strong>6. Career Path Visualization</strong>
+<ul>
+<li>Interactive career roadmap generation</li>
+<li>Skill tree visualization</li>
+<li>Milestone tracking and progress monitoring</li>
+<li>Timeline projections for career goals</li>
+</ul>
+
+<strong>7. Networking Features</strong>
+<ul>
+<li>Connect with mentors in similar fields</li>
+<li>Peer discussion forums</li>
+<li>Success story sharing</li>
+<li>Collaborative goal setting</li>
+</ul>
+
+<h2>7.3 Analytics and Insights</h2>
+
+<strong>8. Advanced Analytics Dashboard</strong>
+<ul>
+<li>Career progress tracking over time</li>
+<li>Skill development metrics</li>
+<li>Goal completion rates</li>
+<li>Personalized insights and recommendations</li>
+</ul>
+
+<strong>9. Predictive Analytics</strong>
+<ul>
+<li>Career trajectory predictions</li>
+<li>Success probability for career transitions</li>
+<li>Market demand forecasting for skills</li>
+<li>Salary growth projections</li>
+</ul>
+
+<h2>7.4 Integration and Extensibility</h2>
+
+<strong>10. Third-Party Integrations</strong>
+<ul>
+<li>LinkedIn integration for profile sync</li>
+<li>Indeed/Glassdoor job alerts</li>
+<li>Calendar integration for interview scheduling</li>
+<li>Email notifications for important updates</li>
+</ul>
+
+<strong>11. Mobile Applications</strong>
+<ul>
+<li>Native iOS app (Swift/SwiftUI)</li>
+<li>Native Android app (Kotlin/Jetpack Compose)</li>
+<li>Offline mode for viewing past conversations</li>
+<li>Push notifications for AI responses</li>
+</ul>
+
+<strong>12. API for Developers</strong>
+<ul>
+<li>Public API for career counseling integration</li>
+<li>Webhook support for external systems</li>
+<li>Developer documentation and SDKs</li>
+<li>Rate-limited free tier</li>
+</ul>
+
+<h2>7.5 User Experience Enhancements</h2>
+
+<strong>13. Collaboration Features</strong>
+<ul>
+<li>Share conversations with mentors/coaches</li>
+<li>Collaborative editing of career documents</li>
+<li>Group counseling sessions</li>
+<li>Expert human counselor fallback</li>
+</ul>
+
+<strong>14. Gamification</strong>
+<ul>
+<li>Achievement badges for career milestones</li>
+<li>Leaderboards for skill acquisition</li>
+<li>Daily career tips and challenges</li>
+<li>Reward system for consistent engagement</li>
+</ul>
+
+<strong>15. Accessibility Improvements</strong>
+<ul>
+<li>Full WCAG 2.1 AAA compliance</li>
+<li>Screen reader optimization</li>
+<li>Keyboard navigation enhancements</li>
+<li>High contrast and dyslexia-friendly modes</li>
+</ul>
+
+<h2>7.6 Monetization Opportunities</h2>
+
+<strong>16. Premium Features</strong>
+<ul>
+<li>Advanced AI models (GPT-4, Claude)</li>
+<li>Unlimited conversation history</li>
+<li>Priority response times</li>
+<li>Expert human counselor access</li>
+</ul>
+
+<strong>17. Enterprise Solutions</strong>
+<ul>
+<li>White-label platform for universities</li>
+<li>Corporate career development programs</li>
+<li>Bulk licensing for organizations</li>
+<li>Custom AI training on company data</li>
+</ul>
+
+<hr>
+
+<h1>8. BIBLIOGRAPHY</h1>
+
+<h2>Books</h2>
+
+<p>
+1. Sommerville, I. (2015). *Software Engineering* (10th ed.). Pearson Education.
+</p>
+
+<p>
+2. Pressman, R. S., & Maxim, B. R. (2020). *Software Engineering: A Practitioner's Approach* (9th ed.). McGraw-Hill Education.
+</p>
+
+<p>
+3. Silberschatz, A., Korth, H. F., & Sudarshan, S. (2019). *Database System Concepts* (7th ed.). McGraw-Hill Education.
+</p>
+
+<p>
+4. Flanagan, D. (2020). *JavaScript: The Definitive Guide* (7th ed.). O'Reilly Media.
+</p>
+
+<p>
+5. Banks, A., & Porcello, E. (2020). *Learning React: Modern Patterns for Developing React Apps* (2nd ed.). O'Reilly Media.
+</p>
+
+<h2>Online Documentation</h2>
+
+<p>
+6. Next.js Documentation. (2024). Retrieved from https://nextjs.org/docs
+</p>
+
+<p>
+7. React Documentation. (2024). Retrieved from https://react.dev
+</p>
+
+<p>
+8. Prisma Documentation. (2024). Retrieved from https://www.prisma.io/docs
+</p>
+
+<p>
+9. tRPC Documentation. (2024). Retrieved from https://trpc.io/docs
+</p>
+
+<p>
+10. TypeScript Handbook. (2024). Retrieved from https://www.typescriptlang.org/docs/
+</p>
+
+<p>
+11. TanStack Query Documentation. (2024). Retrieved from https://tanstack.com/query/latest
+</p>
+
+<p>
+12. Tailwind CSS Documentation. (2024). Retrieved from https://tailwindcss.com/docs
+</p>
+
+<p>
+13. Vercel Documentation. (2024). Retrieved from https://vercel.com/docs
+</p>
+
+<p>
+14. Google Gemini AI Documentation. (2024). Retrieved from https://ai.google.dev/docs
+</p>
+
+<p>
+15. NextAuth.js Documentation. (2024). Retrieved from https://next-auth.js.org
+</p>
+
+<h2>Research Papers</h2>
+
+<p>
+16. Vaswani, A., et al. (2017). "Attention Is All You Need." *Advances in Neural Information Processing Systems*, 30.
+</p>
+
+<p>
+17. Brown, T., et al. (2020). "Language Models are Few-Shot Learners." *Advances in Neural Information Processing Systems*, 33.
+</p>
+
+<p>
+18. Devlin, J., et al. (2019). "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding." *NAACL-HLT*.
+</p>
+
+<h2>Online Articles and Tutorials</h2>
+
+<p>
+19. Vercel. (2024). "Building Production-Ready Next.js Applications." Vercel Blog. Retrieved from https://vercel.com/blog
+</p>
+
+<p>
+20. Prisma. (2024). "Database Best Practices with Prisma ORM." Prisma Blog. Retrieved from https://www.prisma.io/blog
+</p>
+
+<p>
+21. Lee, J. (2023). "Type-Safe APIs with tRPC and TypeScript." Medium. Retrieved from https://medium.com
+</p>
+
+<p>
+22. Khan, A. (2024). "Implementing AI Chat Applications with Google Gemini." DEV Community. Retrieved from https://dev.to
+</p>
+
+<h2>Standards and Guidelines</h2>
+
+<p>
+23. World Wide Web Consortium (W3C). (2023). *Web Content Accessibility Guidelines (WCAG) 2.1*. Retrieved from https://www.w3.org/WAI/WCAG21/quickref/
+</p>
+
+<p>
+24. OWASP Foundation. (2024). *OWASP Top Ten Web Application Security Risks*. Retrieved from https://owasp.org/www-project-top-ten/
+</p>
+
+<p>
+25. Internet Engineering Task Force (IETF). (2012). *The OAuth 2.0 Authorization Framework* (RFC 6749). Retrieved from https://tools.ietf.org/html/rfc6749
+</p>
+
+<hr>
+
+<strong>END OF SYNOPSIS</strong>
+
+<hr>
+
+<h2>Appendix A: Glossary of Terms</h2>
+
+<ul>
+<li><strong>API</strong>: Application Programming Interface</li>
+<li><strong>CRUD</strong>: Create, Read, Update, Delete</li>
+<li><strong>DFD</strong>: Data Flow Diagram</li>
+<li><strong>ER Diagram</strong>: Entity-Relationship Diagram</li>
+<li><strong>JWT</strong>: JSON Web Token</li>
+<li><strong>OAuth</strong>: Open Authorization</li>
+<li><strong>ORM</strong>: Object-Relational Mapping</li>
+<li><strong>RPC</strong>: Remote Procedure Call</li>
+<li><strong>SSR</strong>: Server-Side Rendering</li>
+<li><strong>tRPC</strong>: TypeScript Remote Procedure Call</li>
+<li><strong>UI/UX</strong>: User Interface/User Experience</li>
+<li><strong>UUID</strong>: Universally Unique Identifier</li>
+</ul>
+
+<h2>Appendix B: Acronyms</h2>
+
+<ul>
+<li><strong>BCA</strong>: Bachelor of Computer Applications</li>
+<li><strong>CDN</strong>: Content Delivery Network</li>
+<li><strong>CSP</strong>: Content Security Policy</li>
+<li><strong>GDPR</strong>: General Data Protection Regulation</li>
+<li><strong>HTTPS</strong>: Hypertext Transfer Protocol Secure</li>
+<li><strong>LLM</strong>: Large Language Model</li>
+<li><strong>PERT</strong>: Program Evaluation and Review Technique</li>
+<li><strong>RBAC</strong>: Role-Based Access Control</li>
+<li><strong>SQL</strong>: Structured Query Language</li>
+<li><strong>TLS</strong>: Transport Layer Security</li>
+<li><strong>WCAG</strong>: Web Content Accessibility Guidelines</li>
+<li><strong>XSS</strong>: Cross-Site Scripting</li>
+</ul>
+
+<hr>
+
+<strong>Total Pages: 19</strong>
+
+<strong>Document Prepared By</strong>: [Student Name]
+<strong>Learner ID</strong>: [Your Learner ID]
+<strong>Date</strong>: [Current Date]
+<strong>University</strong>: Uttaranchal University, Dehradun
+
+</div>
+
+</body>
+</html>
